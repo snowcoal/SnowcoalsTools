@@ -43,3 +43,18 @@ To run ```/citygen genbase```, first make a 2D polygonal selection of where the 
 After the base of the city is generated, the houses can then be added and the city pasted in. A houseset must be loaded before this can take place. To paste
 the final city, run ```/citygen gencity``` which will paste it at the height of the player
 
+
+# TODO
+
+    Add ability to remove specific houses from houseset, and view houses in houseset
+    Automatically reload chunks and fix lighting after pasting
+    Add permissions support
+    Add support for multiple players running commands at once
+    Extend city size
+
+# Known issues
+
+    Making larger (>2000 block) wide cities usually crashes the server
+    One of my test houses gets cutoff by chunk borders, or does not place at all, or places perfectly normally
+    No permissions currently
+
