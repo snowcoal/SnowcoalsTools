@@ -1,7 +1,7 @@
 # CityGeneratorPlugin
 PaperMC plugin version of CityGenerator
 
-This is a plugin that generates cities using a maze-based algorithm. It implements FastAsyncWorldEdit and thus requires it installed on the server.
+This is a plugin that generates cities using a maze-based algorithm. It uses the FastAsyncWorldEdit API and thus requires it installed on the server.
 
 Most of the code in this plugin was directly copied from my C++ CityGenerator project, and some conversions were done to fix syntax stuff.
 Thus, there are often comments or variable names referring to pointers, even though Java does not have pointers. Im too lazy to fix all
