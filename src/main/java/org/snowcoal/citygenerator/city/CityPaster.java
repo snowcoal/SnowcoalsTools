@@ -37,8 +37,8 @@ public class CityPaster {
         // get world
         World world = player.getWorld();
 
-        // get editsession
-        EditSession editSession = WorldEdit.getInstance().newEditSessionBuilder()
+        // make new editsession for copy
+        EditSession copyEditSession = WorldEdit.getInstance().newEditSessionBuilder()
                 .world(world)
                 .actor(player)
                 .allowedRegionsEverywhere()
@@ -65,7 +65,7 @@ public class CityPaster {
             clipboard.setOrigin(cpy_pt);
 
             // do copy
-            ForwardExtentCopy copy = new ForwardExtentCopy(editSession, region, cpy_pt, clipboard , cpy_pt);
+            ForwardExtentCopy copy = new ForwardExtentCopy(copyEditSession, region, cpy_pt, clipboard , cpy_pt);
             copy.setCopyingEntities(false);
             Operations.complete(copy);
 
@@ -73,9 +73,33 @@ public class CityPaster {
             clipboards.put(house.ID, clipboard);
         }
 
+        int count = 0;
+
+        // make new editsession for paste
+        EditSession pasteEditSession = WorldEdit.getInstance().newEditSessionBuilder()
+                .world(world)
+                .actor(player)
+                .allowedRegionsEverywhere()
+                .limitUnlimited()
+                .compile().build();
 
         // loop through ordered list
         for (CityHouse cityHouse : city.houseList) {
+            // refresh editsession every 200 pastes
+            if(count == 200){
+                count = 0;
+                // close old editsession
+                pasteEditSession.close();
+                // make new editsession for paste
+                pasteEditSession = WorldEdit.getInstance().newEditSessionBuilder()
+                        .world(world)
+                        .actor(player)
+                        .allowedRegionsEverywhere()
+                        .limitUnlimited()
+                        .compile().build();
+
+            }
+
             House srcHouse = cityHouse.house_ptr;
             int houseID = srcHouse.ID;
 
@@ -94,7 +118,7 @@ public class CityPaster {
 
             // build operation
             Operation operation = holder
-                    .createPaste(editSession)
+                    .createPaste(pasteEditSession)
                     .to(paste_pt)
                     .copyEntities(false)
                     .copyBiomes(false)
@@ -106,6 +130,10 @@ public class CityPaster {
             Operations.complete(operation);
 
         }
+
+        // close editsessions
+        copyEditSession.close();
+        pasteEditSession.close();
         return true;
     }
 
