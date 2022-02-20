@@ -1,0 +1,17 @@
+name: CityGenerator
+version: '1.0'
+main: org.snowcoal.citygenerator.CityGenerator
+api-version: 1.18
+authors: [ snowcoal ]
+description: a plugin that generates cities using a maze-based algorithm
+depend: [FastAsyncWorldEdit]
+
+commands:
+  citygen:
+    description: generates city
+    aliases: cg
+    usage: /citygen
+  houseset:
+    description: creates a set of houses for city
+    aliases: hs
+    usage: /houseset
