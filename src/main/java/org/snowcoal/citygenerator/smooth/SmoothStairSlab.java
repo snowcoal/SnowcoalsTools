@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.*;
 
 import org.snowcoal.citygenerator.CityGenerator;
+import org.snowcoal.citygenerator.houseset.House;
 
 import javax.print.DocFlavor;
 
@@ -25,17 +26,15 @@ public class SmoothStairSlab {
     private Region sel;
     private Player player;
     private CityGenerator instance;
-    private List<String> blocks;
-    private Map<XZBlock, Integer> airAboveMap;
-    private Map<XZBlock, Integer> airBelowMap;
-    private final int MISSING_Y_OFFSET = 3;
+    private Map<XZBlock, ArrayList<Integer>> airAboveMap;
+    private Map<XZBlock, ArrayList<Integer>> airBelowMap;
+    private final int MISSING_Y_OFFSET = 2;
     private Random random;
 
     public SmoothStairSlab(Region sel, Player player, CityGenerator instance) {
         this.sel = sel;
         this.player = player;
         this.instance = instance;
-        this.blocks = new ArrayList<>();
         this.airAboveMap = new HashMap<>();
         this.airBelowMap = new HashMap<>();
         this.random = new Random();
@@ -68,9 +67,9 @@ public class SmoothStairSlab {
         // System.out.println("min: " + min + " max: " + max);
 
         // loop through all blocks in selection
-        for (int z = min.getZ(); z <= max.getZ(); z++) {
-            for (int y = min.getY(); y <= max.getY(); y++) {
-                for (int x = min.getX(); x <= max.getX(); x++) {
+        for (int x = min.getX(); x <= max.getX(); x++) {
+            for (int z = min.getZ(); z <= max.getZ(); z++) {
+                for (int y = min.getY(); y <= max.getY(); y++) {
                     // ensure the selection contains the block
                     if (this.sel.contains(x, y, z)) {
                         BlockState block = editSession.getBlock(x, y, z);
@@ -89,10 +88,29 @@ public class SmoothStairSlab {
                                 if (!airAbove || !airBelow)
                                     if (airAbove) {
                                         airAboveBlocks.add(new Block(blockType, x, y, z));
-                                        airAboveMap.put(new XZBlock(x, z), y);
-                                    } else if (airBelow) {
+                                        XZBlock xzBlock = new XZBlock(x, z);
+                                        // attempt to get a list from the hashmap
+                                        ArrayList<Integer> yList = airAboveMap.get(xzBlock);
+                                        // if no list exists yet make one
+                                        if(yList == null){
+                                            yList = new ArrayList<>();
+                                            airAboveMap.put(xzBlock, yList);
+                                        }
+                                        // list will be sorted since y from min to max
+                                        yList.add(y);
+                                    }
+                                    else if (airBelow) {
                                         airBelowBlocks.add(new Block(blockType, x, y, z));
-                                        airBelowMap.put(new XZBlock(x, z), y);
+                                        XZBlock xzBlock = new XZBlock(x, z);
+                                        // attempt to get a list from the hashmap
+                                        ArrayList<Integer> yList = airBelowMap.get(xzBlock);
+                                        // if no list exists yet make one
+                                        if(yList == null){
+                                            yList = new ArrayList<>();
+                                            airBelowMap.put(xzBlock, yList);
+                                        }
+                                        // list will be sorted since y from min to max
+                                        yList.add(y);
                                     }
                             }
                         }
@@ -257,15 +275,26 @@ public class SmoothStairSlab {
         int pX = block.posX;
         int pY = block.posY;
         int pZ = block.posZ;
-        // get the neighbor
-        Integer nY = airAboveMap.get(new XZBlock(pX + xOffset, pZ + zOffset));
 
+        ArrayList<Integer> yList = airAboveMap.get(new XZBlock(pX + xOffset, pZ + zOffset));
         // null check and assign appropriate value
-        if(nY == null){
+        if(yList == null){
             // if neighbor is air, then it goes down
-            if(editSession.getBlock(pX + xOffset, pY, pZ + zOffset).isAir()) nY = pY - MISSING_Y_OFFSET;
+            if(editSession.getBlock(pX + xOffset, pY, pZ + zOffset).isAir()) return(pY - MISSING_Y_OFFSET);
                 // if neighbor is block, then it goes up
-            else nY = pY + MISSING_Y_OFFSET;
+            else return(pY + MISSING_Y_OFFSET);
+        }
+
+        int prevDist = Integer.MAX_VALUE;
+        int nY = 0;
+        // get the nearest y value neighbor
+        for(Integer y: yList){
+            int curDist = abs(y - pY);
+            // break if an element found with an abs distance larger than previous
+            if(curDist > prevDist) break;
+            // set prev values
+            nY = y;
+            prevDist = curDist;
         }
 
         return nY;
@@ -285,15 +314,26 @@ public class SmoothStairSlab {
         int pX = block.posX;
         int pY = block.posY;
         int pZ = block.posZ;
-        // get the neighbor
-        Integer nY = airBelowMap.get(new XZBlock(pX + xOffset, pZ + zOffset));
 
+        ArrayList<Integer> yList = airBelowMap.get(new XZBlock(pX + xOffset, pZ + zOffset));
         // null check and assign appropriate value
-        if(nY == null){
+        if(yList == null){
             // if neighbor is air, then it goes up
-            if(editSession.getBlock(pX + xOffset, pY, pZ + zOffset).isAir()) nY = pY + MISSING_Y_OFFSET;
+            if(editSession.getBlock(pX + xOffset, pY, pZ + zOffset).isAir()) return (pY + MISSING_Y_OFFSET);
                 // if neighbor is block, then it goes down
-            else nY = pY - MISSING_Y_OFFSET;
+            else return(pY - MISSING_Y_OFFSET);
+        }
+
+        int prevDist = Integer.MAX_VALUE;
+        int nY = 0;
+        // get the nearest y value neighbor
+        for(Integer y: yList){
+            int curDist = abs(y - pY);
+            // break if an element found with an abs distance larger than previous
+            if(curDist > prevDist) break;
+            // set prev values
+            nY = y;
+            prevDist = curDist;
         }
 
         return nY;

@@ -129,6 +129,8 @@ public class CityPaster {
             // perform operation
             Operations.complete(operation);
 
+            count++;
+
         }
 
         // close editsessions
