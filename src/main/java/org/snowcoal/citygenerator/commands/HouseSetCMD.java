@@ -25,9 +25,9 @@ public class HouseSetCMD implements CommandExecutor {
     private CityGenerator instance;
     private MessageSender msgSender = null;
 
-    public HouseSetCMD(CityGenerator arg) {
+    public HouseSetCMD(CityGenerator arg, MessageSender ms) {
         instance = arg;
-        msgSender =  new MessageSender();
+        msgSender =  ms;
 
         // init housesets list
     }

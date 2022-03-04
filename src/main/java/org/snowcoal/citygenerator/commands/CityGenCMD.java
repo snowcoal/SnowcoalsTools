@@ -28,9 +28,9 @@ public class CityGenCMD implements CommandExecutor {
     private MessageSender msgSender = null;
     private CityRoads cityRoads = null;
 
-    public CityGenCMD(CityGenerator arg) {
+    public CityGenCMD(CityGenerator arg, MessageSender ms) {
         instance = arg;
-        msgSender =  new MessageSender();
+        msgSender = ms;
     }
 
     @Override
