@@ -43,6 +43,17 @@ To run ```/citygen genbase```, first make a 2D polygonal selection of where the 
 After the base of the city is generated, the houses can then be added and the city pasted in. A houseset must be loaded before this can take place. To paste
 the final city, run ```/citygen gencity``` which will paste it at the height of the player
 
+# SmoothStairSlab Command
+
+I added a command that smooths common terrain blocks into stairs and slabs. The idea is similar to the FAWE /smoothsnow command, however the implementation is
+completely different. To run, do ```/smoothstairslab``` or ```/smss``` after making a selection. It works upside down and right side up, in caves, regardless
+of how many overhangs there might be. Basically theres zero restrictions for where it will work and where it wont (However note that it will likely fail if
+you attempt to smooth a 1-block thick surface). Also, it works best when the terrain is already somewhat smooth, as no actual mathematical "smoothing"
+(ie Gaussian smoothing) is done to the terrain. This can be easily accomplished prior using the FAWE ```/smooth``` command or a smooth brush.
+
+This command also has a pretty good running time of O(n*logk), where n is the number of blocks being changed into stairs/slabs, and k is the average number
+of overhangs for each (X,Z) coordinate. Since there are usually under 10 overhangs, it means that the command more or less has an O(n) run time.
+
 
 # TODO
 
@@ -55,4 +66,5 @@ the final city, run ```/citygen gencity``` which will paste it at the height of 
 
     Making larger (>2000 block) wide cities usually crashes the server
     No permissions currently
+    /undo sometimes works and sometimes doesnt for both city generator and smoothstairslab
 
