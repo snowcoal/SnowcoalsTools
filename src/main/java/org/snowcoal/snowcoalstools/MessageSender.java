@@ -1,4 +1,4 @@
-package org.snowcoal.citygenerator;
+package org.snowcoal.snowcoalstools;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;

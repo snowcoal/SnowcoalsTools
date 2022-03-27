@@ -1,4 +1,4 @@
-package org.snowcoal.citygenerator;
+package org.snowcoal.snowcoalstools;
 
 import java.util.Random;
 

@@ -1,20 +1,18 @@
-package org.snowcoal.citygenerator;
+package org.snowcoal.snowcoalstools;
 
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import java.io.File;
-import org.bukkit.command.CommandExecutor;
+
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.snowcoal.citygenerator.commands.CityGenCMD;
-import org.snowcoal.citygenerator.commands.HouseSetCMD;
-import org.snowcoal.citygenerator.commands.SmoothStairSlabCMD;
-import org.snowcoal.citygenerator.houseset.HouseSet;
-import org.snowcoal.citygenerator.smooth.BlockMap;
+import org.snowcoal.snowcoalstools.commands.CityGenCMD;
+import org.snowcoal.snowcoalstools.commands.HouseSetCMD;
+import org.snowcoal.snowcoalstools.commands.SmoothStairSlabCMD;
+import org.snowcoal.snowcoalstools.houseset.HouseSet;
+import org.snowcoal.snowcoalstools.smooth.BlockMap;
 
-import java.io.File;
-
-public final class CityGenerator extends JavaPlugin {
+public final class SnowcoalsTools extends JavaPlugin {
 
     private WorldEditPlugin fawe;
     public HouseSet houseSet = null;
@@ -27,7 +25,7 @@ public final class CityGenerator extends JavaPlugin {
         // check for worldedit
         Plugin fawe = getServer().getPluginManager().getPlugin("FastAsyncWorldEdit");
         if(fawe.equals(null) || !(fawe instanceof WorldEditPlugin)){
-            System.out.println("FAWE required for CityGenerator, please install it");
+            System.out.println("FAWE required for snowcoalsTools, please install it");
             return;
         }
         this.fawe = (WorldEditPlugin) fawe;
@@ -56,12 +54,13 @@ public final class CityGenerator extends JavaPlugin {
         getCommand("houseset").setExecutor(new HouseSetCMD(this, ms));
         getCommand("smoothstairslab").setExecutor(new SmoothStairSlabCMD(this, ms));
 
-        System.out.println("CityGenerator Successfully loaded!");
+        System.out.println("snowcoalsTools Successfully loaded!");
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        System.out.println("snowcoalsTools Successfully Unloaded!");
     }
 
     public BlockMap getBlockMap(){

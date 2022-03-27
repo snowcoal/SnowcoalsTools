@@ -1,14 +1,12 @@
-package org.snowcoal.citygenerator.city;
+package org.snowcoal.snowcoalstools.city;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.Polygonal2DRegion;
-import org.checkerframework.checker.units.qual.C;
-import org.snowcoal.citygenerator.CityUtils;
-import org.snowcoal.citygenerator.houseset.HouseSet;
+import org.snowcoal.snowcoalstools.CityUtils;
+import org.snowcoal.snowcoalstools.houseset.HouseSet;
 
 public class City {
     // member vars
@@ -16,15 +14,15 @@ public class City {
     // position of corner of city
 //    private int start_x = Integer.MAX_VALUE;
 //    private int start_z = Integer.MAX_VALUE;
-    private int start_x;
-    private int start_z;
+    public int start_x;
+    public int start_z;
 
     // number of steps on city from heightmap
     private double num_steps;
 
     // length and width of the city
-    private int cityWidth;
-    private int cityLength;
+    public int cityWidth;
+    public int cityLength;
 
     // length and width of grid
     public int gridWidth;

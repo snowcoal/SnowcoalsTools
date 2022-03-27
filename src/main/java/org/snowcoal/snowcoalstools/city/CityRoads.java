@@ -1,6 +1,6 @@
-package org.snowcoal.citygenerator.city;
+package org.snowcoal.snowcoalstools.city;
 
-import org.snowcoal.citygenerator.CityUtils;
+import org.snowcoal.snowcoalstools.CityUtils;
 import java.util.ArrayList;
 import java.util.List;
 

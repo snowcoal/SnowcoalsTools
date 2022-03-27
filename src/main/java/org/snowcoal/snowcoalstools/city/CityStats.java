@@ -1,4 +1,4 @@
-package org.snowcoal.citygenerator.city;
+package org.snowcoal.snowcoalstools.city;
 
 public class CityStats {
     public int numCells;

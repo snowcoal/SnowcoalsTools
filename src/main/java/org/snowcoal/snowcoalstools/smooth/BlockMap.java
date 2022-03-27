@@ -1,4 +1,4 @@
-package org.snowcoal.citygenerator.smooth;
+package org.snowcoal.snowcoalstools.smooth;
 
 import java.util.HashMap;
 import java.util.Map;

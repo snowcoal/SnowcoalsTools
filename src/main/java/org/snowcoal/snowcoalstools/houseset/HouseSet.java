@@ -1,4 +1,4 @@
-package org.snowcoal.citygenerator.houseset;
+package org.snowcoal.snowcoalstools.houseset;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;

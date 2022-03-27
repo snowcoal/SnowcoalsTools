@@ -1,4 +1,4 @@
-package org.snowcoal.citygenerator.commands;
+package org.snowcoal.snowcoalstools.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -6,11 +6,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import org.snowcoal.citygenerator.CityGenerator;
-import org.snowcoal.citygenerator.city.City;
-import org.snowcoal.citygenerator.city.CityStats;
-import org.snowcoal.citygenerator.MessageSender;
-import org.snowcoal.citygenerator.city.CityRoads;
+import org.snowcoal.snowcoalstools.SnowcoalsTools;
+import org.snowcoal.snowcoalstools.city.City;
+import org.snowcoal.snowcoalstools.city.CityStats;
+import org.snowcoal.snowcoalstools.MessageSender;
+import org.snowcoal.snowcoalstools.city.CityRoads;
 
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.entity.Player;
@@ -23,12 +23,12 @@ import com.sk89q.worldedit.regions.Polygonal2DRegion;
 
 public class CityGenCMD implements CommandExecutor {
 
-    private CityGenerator instance;
+    private SnowcoalsTools instance;
     private City city = null;
     private MessageSender msgSender = null;
     private CityRoads cityRoads = null;
 
-    public CityGenCMD(CityGenerator arg, MessageSender ms) {
+    public CityGenCMD(SnowcoalsTools arg, MessageSender ms) {
         instance = arg;
         msgSender = ms;
     }
@@ -157,6 +157,7 @@ public class CityGenCMD implements CommandExecutor {
     }
 
     // chat messages:
+    private final String logo = "(&3&lSNOWCOAL&r)&d ";
     private final String playersOnly = "&cERROR: Only players can use this command.";
     private final String incorrectUsage = "&eIncorrect command usage. Correct: ./citygen <genbase OR gencity>";
     private final String incorrectUsageSetBase = "&eIncorrect command usage. Correct: ./citygen genbase <gridBoxWidth> <leftRightBias> <roadDist> (optional)";
@@ -167,12 +168,13 @@ public class CityGenCMD implements CommandExecutor {
     private final String generationFailed = "&cERROR: City Failed to generate, due to area not being large enough. Please select a larger area.";
     private final String houseSetEmpty = "&cERROR: City requires a house set to place houses. Please create one first.";
     private final String cityGenFailed = "&cERROR: City generation failed. It is likely you do not have enough houses. See console for more info.";
-    private final String genSuccess = "(&3&lCITYGEN&r)&d House Placement Succeeded";
+    private final String genSuccess = logo + "House Placement Succeeded";
     private final String pasteFail = "&cERROR: Could not paste city in world";
-    private final String pasteSuccess = "(&3&lCITYGEN&r)&d City pasted in world";
+    private final String pasteSuccess = logo + "City pasted in world";
+
 
     private void sendStats(CommandSender sender, CityStats stats){
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "(&3&lCITYGEN&r)&d Base City Generation Succeeded. Stats: "));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', logo + "Base City Generation Succeeded. Stats: "));
         String area = "&dTotal Area: " + stats.area;
         String numCells = "&dTotal Cells: " + stats.numCells;
         String numHouses = "&dTotal Houses: " + stats.numHouses;

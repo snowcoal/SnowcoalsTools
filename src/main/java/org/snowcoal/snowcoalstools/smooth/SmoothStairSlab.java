@@ -1,4 +1,4 @@
-package org.snowcoal.citygenerator.smooth;
+package org.snowcoal.snowcoalstools.smooth;
 
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.WorldEdit;
@@ -8,30 +8,24 @@ import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockStateHolder;
-import com.sk89q.worldedit.world.block.BlockType;
-import com.sk89q.worldedit.world.block.BlockTypes;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.*;
 
-import org.snowcoal.citygenerator.CityGenerator;
-import org.snowcoal.citygenerator.houseset.House;
-
-import javax.print.DocFlavor;
+import org.snowcoal.snowcoalstools.SnowcoalsTools;
 
 import static java.lang.Math.abs;
 
 public class SmoothStairSlab {
     private Region sel;
     private Player player;
-    private CityGenerator instance;
+    private SnowcoalsTools instance;
     private Map<XZBlock, ArrayList<Integer>> airAboveMap;
     private Map<XZBlock, ArrayList<Integer>> airBelowMap;
     private final int MISSING_Y_OFFSET = 2;
     private Random random;
+    private int changedBlocks = 0;
 
-    public SmoothStairSlab(Region sel, Player player, CityGenerator instance) {
+    public SmoothStairSlab(Region sel, Player player, SnowcoalsTools instance) {
         this.sel = sel;
         this.player = player;
         this.instance = instance;
@@ -151,18 +145,23 @@ public class SmoothStairSlab {
                 continue;
             }
 
-            // pick random number in case they are equal
-            int rand = random.nextInt() % 2;
+            // pick random numbers for determining rotation and whether to place blocks or not
+            int randRot = random.nextInt() % 2;
+            int randLarge = random.nextInt() % 4;
+
+            // dist: slope +- 3: always places
+            //       slope +- 4: 1/2 chance of placing
+            //       slope +- 5: 1/4 chance of placing
 
             // x smaller than z OR they are equal and random = 0
-            if((absXSlope < absZSlope) || (absXSlope == absZSlope && rand == 0)){
+            if((absXSlope < absZSlope) || (absXSlope == absZSlope && randRot == 0)){
                 // negative x slope
-                if(xSlope >= -3 && xSlope < 0){
+                if((xSlope >= -3 || (xSlope == -4 && randLarge < 2) || (xSlope == -5 && randLarge == 0)) && xSlope < 0){
                     changeBlocks.add(new ChangeBlock(block, instance.getBlockMap().getBlock(block.type, BlockMap.xzDirections.WEST, BlockMap.yDirections.UP)));
                     continue;
                 }
                 // positive x slope
-                if(xSlope <= 3 && xSlope > 0) {
+                if((xSlope <= 3 || (xSlope == 4 && randLarge < 2) || (xSlope == 5 && randLarge == 0)) && xSlope > 0) {
                     changeBlocks.add(new ChangeBlock(block, instance.getBlockMap().getBlock(block.type, BlockMap.xzDirections.EAST, BlockMap.yDirections.UP)));
                     continue;
                 }
@@ -170,14 +169,14 @@ public class SmoothStairSlab {
                 continue;
             }
             // z smaller than x OR they are equal and random = 1
-            if(absZSlope < absXSlope || (absXSlope == absZSlope && rand == 1)){
+            if(absZSlope < absXSlope || (absXSlope == absZSlope && randRot == 1)){
                 // negative z slope
-                if(zSlope >= -3 && zSlope < 0){
+                if((zSlope >= -3 || (zSlope == -4 && randLarge < 2) || (zSlope == -5 && randLarge == 0)) && zSlope < 0){
                     changeBlocks.add(new ChangeBlock(block, instance.getBlockMap().getBlock(block.type, BlockMap.xzDirections.NORTH, BlockMap.yDirections.UP)));
                     continue;
                 }
-                // positive x slope
-                if(zSlope <= 3 && zSlope > 0) {
+                // positive z slope
+                if((zSlope <= 3 || (zSlope == 4 && randLarge < 2) || (zSlope == 5 && randLarge == 0)) && zSlope > 0) {
                     changeBlocks.add(new ChangeBlock(block, instance.getBlockMap().getBlock(block.type, BlockMap.xzDirections.SOUTH, BlockMap.yDirections.UP)));
                     continue;
                 }
@@ -215,18 +214,23 @@ public class SmoothStairSlab {
                 continue;
             }
 
-            // pick random number in case they are equal
-            int rand = random.nextInt() % 2;
+            // pick random numbers for determining rotation and whether to place blocks or not
+            int randRot = random.nextInt() % 2;
+            int randLarge = random.nextInt() % 4;
+
+            // dist: slope +- 3: always places
+            //       slope +- 4: 1/2 chance of placing
+            //       slope +- 5: 1/4 chance of placing
 
             // x smaller than z OR they are equal and random = 0
-            if((absXSlope < absZSlope) || (absXSlope == absZSlope && rand == 0)){
+            if((absXSlope < absZSlope) || (absXSlope == absZSlope && randRot == 0)){
                 // negative x slope
-                if(xSlope >= -3 && xSlope < 0){
+                if((xSlope >= -3 || (xSlope == -4 && randLarge < 2) || (xSlope == -5 && randLarge == 0)) && xSlope < 0){
                     changeBlocks.add(new ChangeBlock(block, instance.getBlockMap().getBlock(block.type, BlockMap.xzDirections.EAST, BlockMap.yDirections.DOWN)));
                     continue;
                 }
                 // positive x slope
-                if(xSlope <= 3 && xSlope > 0) {
+                if((xSlope <= 3 || (xSlope == 4 && randLarge < 2) || (xSlope == 5 && randLarge == 0)) && xSlope > 0) {
                     changeBlocks.add(new ChangeBlock(block, instance.getBlockMap().getBlock(block.type, BlockMap.xzDirections.WEST, BlockMap.yDirections.DOWN)));
                     continue;
                 }
@@ -234,14 +238,14 @@ public class SmoothStairSlab {
                 continue;
             }
             // z smaller than x OR they are equal and random = 1
-            if(absZSlope < absXSlope || (absXSlope == absZSlope && rand == 1)){
+            if(absZSlope < absXSlope || (absXSlope == absZSlope && randRot == 1)){
                 // negative z slope
-                if(zSlope >= -3 && zSlope < 0){
+                if((zSlope >= -3 || (zSlope == -4 && randLarge < 2) || (zSlope == -5 && randLarge == 0)) && zSlope < 0){
                     changeBlocks.add(new ChangeBlock(block, instance.getBlockMap().getBlock(block.type, BlockMap.xzDirections.SOUTH, BlockMap.yDirections.DOWN)));
                     continue;
                 }
-                // positive x slope
-                if(zSlope <= 3 && zSlope > 0) {
+                // positive z slope
+                if((zSlope <= 3 || (zSlope == 4 && randLarge < 2) || (zSlope == 5 && randLarge == 0)) && zSlope > 0) {
                     changeBlocks.add(new ChangeBlock(block, instance.getBlockMap().getBlock(block.type, BlockMap.xzDirections.NORTH, BlockMap.yDirections.DOWN)));
                     continue;
                 }
@@ -254,6 +258,9 @@ public class SmoothStairSlab {
         for (ChangeBlock cBlock: changeBlocks){
             editSession.setBlock(cBlock.blockInput.posX, cBlock.blockInput.posY, cBlock.blockInput.posZ,
                     (BlockStateHolder)new BlockState(cBlock.blockOutput.blockType, cBlock.blockOutput.IID, cBlock.blockOutput.ordinal));
+
+            // count total amount of blocks changed
+            this.changedBlocks++;
         }
 
 
@@ -261,6 +268,15 @@ public class SmoothStairSlab {
         return true;
     }
 
+    /**
+     * getChangedBlocks
+     *
+     * gets the amount of blocks that were changed by the edit
+     *
+     */
+    public int getChangedBlocks(){
+        return this.changedBlocks;
+    }
 
     /**
      * assignYValueAbove
@@ -357,7 +373,8 @@ public class SmoothStairSlab {
             case "minecraft:cobblestone": return BlockMap.Blocks.COBBLESTONE;
             case "minecraft:mossy_cobblestone": return BlockMap.Blocks.MOSSY_COBBLESTONE;
             case "minecraft:blackstone": return BlockMap.Blocks.BLACKSTONE;
-            case "minecraft:cobbled_deepslate": return BlockMap.Blocks.COBBLED_DEEPSLATE;
+            case "minecraft:cobbled_deepslate":
+            case "minecraft:deepslate": return BlockMap.Blocks.COBBLED_DEEPSLATE;
             case "minecraft:sandstone": return BlockMap.Blocks.SANDSTONE;
             case "minecraft:smooth_sandstone": return BlockMap.Blocks.SMOOTH_SANDSTONE;
             case "minecraft:red_sandstone": return BlockMap.Blocks.RED_SANDSTONE;

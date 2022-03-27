@@ -1,8 +1,8 @@
-package org.snowcoal.citygenerator.city;
+package org.snowcoal.snowcoalstools.city;
 
 import java.util.Stack;
 
-import org.snowcoal.citygenerator.CityUtils;
+import org.snowcoal.snowcoalstools.CityUtils;
 
 
 public class CityMaze {

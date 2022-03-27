@@ -1,14 +1,11 @@
-package org.snowcoal.citygenerator.city;
+package org.snowcoal.snowcoalstools.city;
 
-import org.snowcoal.citygenerator.houseset.HouseSet;
-import org.snowcoal.citygenerator.city.GridCell;
-import org.snowcoal.citygenerator.houseset.House;
+import org.snowcoal.snowcoalstools.houseset.HouseSet;
+import org.snowcoal.snowcoalstools.houseset.House;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.lang.Math.*;
-import java.util.stream.Collector;
 import java.util.*;
 
 public class CityHousePlacer {

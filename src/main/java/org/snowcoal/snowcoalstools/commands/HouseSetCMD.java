@@ -1,31 +1,26 @@
-package org.snowcoal.citygenerator.commands;
+package org.snowcoal.snowcoalstools.commands;
 
 import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.regions.CuboidRegion;
-import com.sk89q.worldedit.regions.Polygonal2DRegion;
 import com.sk89q.worldedit.regions.Region;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import org.snowcoal.citygenerator.CityGenerator;
+import org.snowcoal.snowcoalstools.SnowcoalsTools;
 import com.sk89q.worldedit.entity.Player;
-import org.snowcoal.citygenerator.MessageSender;
-import org.snowcoal.citygenerator.houseset.HouseSet;
+import org.snowcoal.snowcoalstools.MessageSender;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class HouseSetCMD implements CommandExecutor {
-    private CityGenerator instance;
+    private SnowcoalsTools instance;
     private MessageSender msgSender = null;
 
-    public HouseSetCMD(CityGenerator arg, MessageSender ms) {
+    public HouseSetCMD(SnowcoalsTools arg, MessageSender ms) {
         instance = arg;
         msgSender =  ms;
 
@@ -208,18 +203,19 @@ public class HouseSetCMD implements CommandExecutor {
     }
 
     // chat messages
+    private final String logo = "(&3&lSNOWCOAL&r)&d ";
     private final String playersOnly = "&cERROR: Only players can use this command.";
     private final String incorrectUsage = "&eIncorrect command usage. Correct: ./houseset <addhouse OR save OR load OR list OR clear>";
     private final String noRegionSelected = "&cERROR: Please make a selection first.";
     private final String houseSetDNE = "&cERROR: House Set does not exist";
-    private final String houseSetLoaded = "(&3&lCITYGEN&r)&d House Set successfully loaded!";
-    private final String houseSetSaved = "(&3&lCITYGEN&r)&d House Set successfully saved as ";
+    private final String houseSetLoaded = logo + "House Set successfully loaded!";
+    private final String houseSetSaved = logo + "House Set successfully saved as ";
     private final String nameNeeded = "&eIncorrect command usage. Correct: ./houseset load <name>";
     private final String nameNeededS = "&eIncorrect command usage. Correct: ./houseset save <name>";
     private final String noHouseSets = "&eThere are no HouseSets to be loaded";
-    private final String curHouseSets = "(&3&lCITYGEN&r)&d House Sets currently saved:";
+    private final String curHouseSets = logo + "House Sets currently saved:";
     private final String incorrectUsageAH = "&eIncorrect command usage. Correct: ./houseset addhouse <type>";
     private final String invalidAHArguments = "&eInvalid Arguments for <type>. Correct: <type> is the number of neighbors and should be 0-4, or -2 if the house has exactly 2 neighbors directly across";
     private final String invalidSelection = "&cERROR: Selection must have a odd-numbered width";
-    private final String addHouseSuccess = "(&3&lCITYGEN&r)&d selection successfully added to house set!";
+    private final String addHouseSuccess = logo + "selection successfully added to house set!";
 }

@@ -1,4 +1,4 @@
-package org.snowcoal.citygenerator.city;
+package org.snowcoal.snowcoalstools.city;
 
 import com.fastasyncworldedit.core.math.MutableBlockVector3;
 import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
@@ -7,7 +7,7 @@ import com.sk89q.worldedit.function.operation.ForwardExtentCopy;
 import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.math.transform.AffineTransform;
 import com.sk89q.worldedit.world.World;
-import org.snowcoal.citygenerator.houseset.House;
+import org.snowcoal.snowcoalstools.houseset.House;
 
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.WorldEdit;
@@ -17,7 +17,7 @@ import com.sk89q.worldedit.function.mask.InverseSingleBlockTypeMask;
 import com.sk89q.worldedit.world.block.BlockTypes;
 import com.sk89q.worldedit.session.ClipboardHolder;
 import com.sk89q.worldedit.function.operation.Operation;
-import org.snowcoal.citygenerator.houseset.HouseSet;
+import org.snowcoal.snowcoalstools.houseset.HouseSet;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class CityPaster {
         World world = player.getWorld();
 
         // make new editsession for copy
-        EditSession copyEditSession = WorldEdit.getInstance().newEditSessionBuilder()
+        EditSession editSession = WorldEdit.getInstance().newEditSessionBuilder()
                 .world(world)
                 .actor(player)
                 .allowedRegionsEverywhere()
@@ -65,7 +65,7 @@ public class CityPaster {
             clipboard.setOrigin(cpy_pt);
 
             // do copy
-            ForwardExtentCopy copy = new ForwardExtentCopy(copyEditSession, region, cpy_pt, clipboard , cpy_pt);
+            ForwardExtentCopy copy = new ForwardExtentCopy(editSession, region, cpy_pt, clipboard , cpy_pt);
             copy.setCopyingEntities(false);
             Operations.complete(copy);
 
@@ -73,32 +73,17 @@ public class CityPaster {
             clipboards.put(house.ID, clipboard);
         }
 
-        int count = 0;
 
-        // make new editsession for paste
-        EditSession pasteEditSession = WorldEdit.getInstance().newEditSessionBuilder()
-                .world(world)
-                .actor(player)
-                .allowedRegionsEverywhere()
-                .limitUnlimited()
-                .compile().build();
+        // create new region, and clipboard for paste
+        MutableBlockVector3 corner1 = new MutableBlockVector3(city.start_x, -64, city.start_z);
+        MutableBlockVector3 corner2 = new MutableBlockVector3(city.start_x+city.cityWidth, 384, city.start_z+city.cityLength);
+        CuboidRegion pasteRegion = new CuboidRegion(world, corner1, corner2);
+        BlockArrayClipboard pasteClipboard = new BlockArrayClipboard(pasteRegion);
+        ClipboardHolder pasteClipboardHolder = new ClipboardHolder(pasteClipboard);
+        pasteClipboard.setOrigin(corner1);
 
         // loop through ordered list
         for (CityHouse cityHouse : city.houseList) {
-            // refresh editsession every 200 pastes
-            if(count == 200){
-                count = 0;
-                // close old editsession
-                pasteEditSession.close();
-                // make new editsession for paste
-                pasteEditSession = WorldEdit.getInstance().newEditSessionBuilder()
-                        .world(world)
-                        .actor(player)
-                        .allowedRegionsEverywhere()
-                        .limitUnlimited()
-                        .compile().build();
-
-            }
 
             House srcHouse = cityHouse.house_ptr;
             int houseID = srcHouse.ID;
@@ -107,6 +92,7 @@ public class CityPaster {
             BlockArrayClipboard clipboard = clipboards.get(houseID);
 
             // create paste location
+            // y_paste = world.getHighestTerrainBlock(cityHouse.pos_x, cityHouse.pos_z, 0, 100);
             MutableBlockVector3 paste_pt = new MutableBlockVector3(cityHouse.pos_x, y_paste, cityHouse.pos_z);
 
             // set mask
@@ -116,9 +102,9 @@ public class CityPaster {
             ClipboardHolder holder = new ClipboardHolder(clipboard);
             holder.setTransform(new AffineTransform().rotateY(cityHouse.rotation * -90));
 
-            // build operation
+            // paste house into final clipboard
             Operation operation = holder
-                    .createPaste(pasteEditSession)
+                    .createPaste(pasteClipboard)
                     .to(paste_pt)
                     .copyEntities(false)
                     .copyBiomes(false)
@@ -128,14 +114,22 @@ public class CityPaster {
 
             // perform operation
             Operations.complete(operation);
-
-            count++;
-
         }
 
-        // close editsessions
-        copyEditSession.close();
-        pasteEditSession.close();
+        // paste final clipboard into world
+        Operation operation = pasteClipboardHolder
+                .createPaste(editSession)
+                .to(corner1)
+                .copyEntities(false)
+                .copyBiomes(false)
+                .ignoreAirBlocks(true)
+                .build();
+
+        // perform operation
+        Operations.complete(operation);
+
+        // close editsession
+        editSession.close();
         return true;
     }
 

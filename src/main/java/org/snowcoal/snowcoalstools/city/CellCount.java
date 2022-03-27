@@ -1,4 +1,4 @@
-package org.snowcoal.citygenerator.city;
+package org.snowcoal.snowcoalstools.city;
 
 // struct returned by getNumNeighbors
 public class CellCount {

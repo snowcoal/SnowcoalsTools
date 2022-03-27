@@ -1,5 +1,4 @@
-package org.snowcoal.citygenerator.houseset;
-import com.sk89q.worldedit.math.BlockVector3;
+package org.snowcoal.snowcoalstools.houseset;
 
 public class House {
     // ID of house (for mapping it in game)

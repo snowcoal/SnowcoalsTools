@@ -1,7 +1,7 @@
-package org.snowcoal.citygenerator.smooth;
+package org.snowcoal.snowcoalstools.smooth;
 
 import com.sk89q.worldedit.world.block.BlockState;
-import org.snowcoal.citygenerator.CityGenerator;
+import org.snowcoal.snowcoalstools.SnowcoalsTools;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -21,9 +21,9 @@ import java.util.List;
 public class BlockScanner {
 
     private List<String> blocks;
-    private CityGenerator instance;
+    private SnowcoalsTools instance;
 
-    public BlockScanner(CityGenerator instance){
+    public BlockScanner(SnowcoalsTools instance){
         this.instance = instance;
         blocks = new ArrayList<>();
     }

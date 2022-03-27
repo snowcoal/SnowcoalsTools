@@ -1,7 +1,7 @@
-package org.snowcoal.citygenerator.city;
+package org.snowcoal.snowcoalstools.city;
 
 import org.jetbrains.annotations.NotNull;
-import org.snowcoal.citygenerator.houseset.House;
+import org.snowcoal.snowcoalstools.houseset.House;
 
 public class CityHouse implements Comparable<CityHouse>{
     // positional data (center point based)
