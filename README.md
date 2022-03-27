@@ -68,9 +68,13 @@ of overhangs for each (X,Z) coordinate. Since there are usually under 10 overhan
     Add support for multiple players running commands at once
     Extend city size
 
-# Known issues
+# Known Issues
 
     Making larger (>2000 block) wide cities usually crashes the server
     No permissions currently
     /undo sometimes works and sometimes doesnt for both city generator and smoothstairslab
 
+# Future Enchancements
+
+    Erosion (thermal and water) simulations
+    //wall command to automatically generate stone walls for farms
