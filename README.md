@@ -78,3 +78,4 @@ of overhangs for each (X,Z) coordinate. Since there are usually under 10 overhan
 
     Erosion (thermal and water) simulations
     //wall command to automatically generate stone walls for farms
+    3d erosion??
