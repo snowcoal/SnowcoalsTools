@@ -15,7 +15,7 @@ commands:
     description: creates a set of houses for city
     aliases: hs
     usage: /houseset
-  smoothstairslab:
+  /smoothstairslab:
     description: converts terrain blocks to slabs and stairs
-    aliases: smss
-    usage: /smoothstairslab
+    aliases: /smss
+    usage: //smoothstairslab

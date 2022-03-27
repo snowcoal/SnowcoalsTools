@@ -51,11 +51,11 @@ the final city, run ```/citygen gencity``` which will paste it at the height of 
 
 # SmoothStairSlab Command
 
-I added a command that smooths common terrain blocks into stairs and slabs. The idea is similar to the FAWE /smoothsnow command, however the implementation is
-completely different. To run, do ```/smoothstairslab``` or ```/smss``` after making a selection. It works upside down and right side up, in caves, regardless
+I added a command that smooths common terrain blocks into stairs and slabs. The idea is similar to the FAWE //smoothsnow command, however the implementation is
+completely different. To run, do ```//smoothstairslab``` or ```//smss``` after making a selection. It works upside down and right side up, in caves, regardless
 of how many overhangs there might be. Basically theres zero restrictions for where it will work and where it wont (However note that it will likely fail if
 you attempt to smooth a 1-block thick surface). Also, it works best when the terrain is already somewhat smooth, as no actual mathematical "smoothing"
-(ie Gaussian smoothing) is done to the terrain. This can be easily accomplished prior using the FAWE ```/smooth``` command or a smooth brush.
+(ie Gaussian smoothing) is done to the terrain. This can be easily accomplished prior using the FAWE ```//smooth``` command or a smooth brush.
 
 This command also has a pretty good running time of O(n*logk), where n is the number of blocks being changed into stairs/slabs, and k is the average number
 of overhangs for each (X,Z) coordinate. Since there are usually under 10 overhangs, it means that the command more or less has an O(n) run time.

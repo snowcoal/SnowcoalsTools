@@ -56,7 +56,7 @@ public final class SnowcoalsTools extends JavaPlugin {
         // register commands
         getCommand("citygen").setExecutor(new CityGenCMD(this, ms));
         getCommand("houseset").setExecutor(new HouseSetCMD(this, ms));
-        getCommand("smoothstairslab").setExecutor(new SmoothStairSlabCMD(this, ms));
+        getCommand("/smoothstairslab").setExecutor(new SmoothStairSlabCMD(this, ms));
 
     }
 
