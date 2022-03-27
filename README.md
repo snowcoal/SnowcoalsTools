@@ -1,15 +1,21 @@
-# CityGeneratorPlugin
-PaperMC plugin version of CityGenerator
+# SnowcoalsTools
 
-This is a plugin that generates cities using a maze-based algorithm. It uses the FastAsyncWorldEdit API and thus requires it installed on the server.
+This is a plugin made by me (snowcoal) that has various building tools that I wanted and then made. The various features are listed below:
 
-Most of the code in this plugin was directly copied from my C++ CityGenerator project, and some conversions were done to fix syntax stuff.
+    Java version of CityGenerator
+    Command that smooths terrain into stairs and slabs
+
+# CityGenerator Command
+
+This is a command that generates cities using a maze-based algorithm. It uses the FastAsyncWorldEdit API and thus requires it installed on the server.
+
+Most of the code for this was directly copied from my C++ CityGenerator project, and some conversions were done to fix syntax stuff.
 Thus, there are often comments or variable names referring to pointers, even though Java does not have pointers. There might also be comments
 of old C++ code, although I have tried to remove most of these.
 
 The original project can be found here: https://github.com/snowcoal/CityGenerator
 
-There are two main commands in this plugin, ```/houseset``` and ```/citygen```. ```/houseset``` creates the set of houses that will be used to generate the city.
+There are two main commands for this tool, ```/houseset``` and ```/citygen```. ```/houseset``` creates the set of houses that will be used to generate the city.
 To create a new houseset, make a cuboid selection of the house, and do ```/houseset addhouse <type>```, while standing in the middle of the house. 
 These are the possible values of the type field:
 
