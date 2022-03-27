@@ -14,6 +14,8 @@ import org.snowcoal.snowcoalstools.city.City;
 import org.snowcoal.snowcoalstools.city.CityRoads;
 import org.snowcoal.snowcoalstools.smooth.SmoothStairSlab;
 
+import java.util.logging.Level;
+
 public class SmoothStairSlabCMD implements CommandExecutor {
     private SnowcoalsTools instance;
 
@@ -46,6 +48,7 @@ public class SmoothStairSlabCMD implements CommandExecutor {
             smoothStairSlab = new SmoothStairSlab(sel, player, this.instance);
         } catch(Exception e){
             this.msgSender.sendMessage(sender, error);
+            instance.getLogger().log(Level.SEVERE, String.valueOf(e.getStackTrace()));
             return true;
         }
 
@@ -62,5 +65,5 @@ public class SmoothStairSlabCMD implements CommandExecutor {
     private final String logo = "(&3&lSNOWCOAL&r)&d ";
     private final String playersOnly = "&cERROR: Only players can use this command.";
     private final String noSelection = "&cERROR: Please make a selection first";
-    private final String error = "&cERROR: An exception occurred while attempting to run this command";
+    private final String error = "&cERROR: An error occurred while attempting to run this command";
 }

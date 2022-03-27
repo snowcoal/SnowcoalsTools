@@ -18,7 +18,7 @@ import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.regions.Polygonal2DRegion;
 
-
+import java.util.logging.Level;
 
 
 public class CityGenCMD implements CommandExecutor {
@@ -143,8 +143,12 @@ public class CityGenCMD implements CommandExecutor {
 
             msgSender.sendMessage(sender, genSuccess);
             // attempt to generate city in world
-            if(!city.paster.pasteCity(player)){
+            try {
+                city.paster.pasteCity(player);
+            } catch(Exception e){
+                instance.getLogger().log(Level.SEVERE, String.valueOf(e.getStackTrace()));
                 msgSender.sendMessage(sender, pasteFail);
+                return true;
             }
 
             msgSender.sendMessage(sender, pasteSuccess);
