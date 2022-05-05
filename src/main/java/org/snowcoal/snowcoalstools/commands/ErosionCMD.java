@@ -8,18 +8,22 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-import org.snowcoal.snowcoalstools.SnowcoalsTools;
 import org.snowcoal.snowcoalstools.MessageSender;
-import org.snowcoal.snowcoalstools.city.City;
-import org.snowcoal.snowcoalstools.city.CityRoads;
-import org.snowcoal.snowcoalstools.smooth.SmoothStairSlab;
+import org.snowcoal.snowcoalstools.SnowcoalsTools;
+import org.snowcoal.snowcoalstools.erode.WaterErosion;
 
 import java.util.logging.Level;
 
-public class SmoothStairSlabCMD implements CommandExecutor {
+abstract class ErosionCMD implements CommandExecutor {
     private SnowcoalsTools instance;
-    private MessageSender msgSender = null;
+    private MessageSender msgSender;
 
+    public ErosionCMD(SnowcoalsTools cg, MessageSender ms){
+        this.instance = cg;
+        this.msgSender = ms;
+    }
+
+    @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof org.bukkit.entity.Player)) {
             this.msgSender.sendMessage(sender, playersOnly);
@@ -37,10 +41,9 @@ public class SmoothStairSlabCMD implements CommandExecutor {
             return true;
         }
 
-        SmoothStairSlab smoothStairSlab = null;
         // attempt to run command
         try {
-            smoothStairSlab = new SmoothStairSlab(sel, player, this.instance);
+            runCommand(sel, player, this.instance);
         } catch(Exception e){
             this.msgSender.sendMessage(sender, error);
             instance.getLogger().log(Level.SEVERE, String.valueOf(e.getStackTrace()));
@@ -48,14 +51,13 @@ public class SmoothStairSlabCMD implements CommandExecutor {
         }
 
         // success message
-        this.msgSender.sendMessage(sender, logo + smoothStairSlab.getChangedBlocks() + " Blocks were changed.");
+        this.msgSender.sendMessage(sender, logo + getChangedBlocks() + " Blocks were changed.");
         return true;
     }
 
-    public SmoothStairSlabCMD(SnowcoalsTools cg, MessageSender ms) {
-        this.instance = cg;
-        this.msgSender = ms;
-    }
+    abstract void runCommand(Region sel, Player player, SnowcoalsTools instance);
+
+    abstract int getChangedBlocks();
 
     private final String logo = "(&3&lSNOWCOAL&r)&d ";
     private final String playersOnly = "&cERROR: Only players can use this command.";

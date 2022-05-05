@@ -76,7 +76,7 @@ public class CityPaster {
 
         // create new region, and clipboard for paste
         MutableBlockVector3 corner1 = new MutableBlockVector3(city.start_x, -64, city.start_z);
-        MutableBlockVector3 corner2 = new MutableBlockVector3(city.start_x+city.cityWidth, 384, city.start_z+city.cityLength);
+        MutableBlockVector3 corner2 = new MutableBlockVector3(city.start_x+city.cityWidth, 320, city.start_z+city.cityLength);
         CuboidRegion pasteRegion = new CuboidRegion(world, corner1, corner2);
         BlockArrayClipboard pasteClipboard = new BlockArrayClipboard(pasteRegion);
         ClipboardHolder pasteClipboardHolder = new ClipboardHolder(pasteClipboard);
