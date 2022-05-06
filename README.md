@@ -76,8 +76,18 @@ of overhangs for each (X,Z) coordinate. Since there are usually under 10 overhan
 
 # Future Enchancements
 
-    Erosion (thermal and water) simulations
+    Thermal erosion
     //wall command to automatically generate stone walls for farms
-    3d erosion??
     3d smoothing
     hexagonal city generator
+
+# Notable References
+
+    Big thanks to Job Talle's blog for the erosion simulation algorithm:
+        https://jobtalle.com/simulating_hydraulic_erosion.html
+
+    Most Valuable Stack Overflow Posts:
+        https://stackoverflow.com/questions/5281261/generating-a-normal-map-from-a-height-map
+
+    I would be nowhere without the FAWE github:
+        https://github.com/IntellectualSites/FastAsyncWorldEdit
