@@ -10,15 +10,12 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.snowcoal.snowcoalstools.MessageSender;
 import org.snowcoal.snowcoalstools.SnowcoalsTools;
-import org.snowcoal.snowcoalstools.erode.WaterErosion;
 
-import java.util.logging.Level;
+abstract class SelectionCMD implements CommandExecutor{
+    public SnowcoalsTools instance;
+    public MessageSender msgSender;
 
-abstract class ErosionCMD implements CommandExecutor {
-    private SnowcoalsTools instance;
-    private MessageSender msgSender;
-
-    public ErosionCMD(SnowcoalsTools cg, MessageSender ms){
+    public SelectionCMD(SnowcoalsTools cg, MessageSender ms){
         this.instance = cg;
         this.msgSender = ms;
     }
@@ -41,26 +38,13 @@ abstract class ErosionCMD implements CommandExecutor {
             return true;
         }
 
-        // attempt to run command
-        try {
-            runCommand(sel, player, this.instance);
-        } catch(Exception e){
-            this.msgSender.sendMessage(sender, error);
-            instance.getLogger().log(Level.SEVERE, String.valueOf(e.getStackTrace()));
-            return true;
-        }
-
-        // success message
-        this.msgSender.sendMessage(sender, logo + getChangedBlocks() + " Blocks were changed.");
-        return true;
+        // run new thread for command
+        return runCommand(new SenderData(instance, msgSender, sender, sel, player, args));
     }
 
-    abstract void runCommand(Region sel, Player player, SnowcoalsTools instance);
+    abstract boolean runCommand(SenderData senderData);
 
-    abstract int getChangedBlocks();
 
-    private final String logo = "(&3&lSNOWCOAL&r)&d ";
     private final String playersOnly = "&cERROR: Only players can use this command.";
     private final String noSelection = "&cERROR: Please make a selection first";
-    private final String error = "&cERROR: An error occurred while attempting to run this command";
 }

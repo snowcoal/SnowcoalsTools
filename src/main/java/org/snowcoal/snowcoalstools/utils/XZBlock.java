@@ -5,7 +5,8 @@ package org.snowcoal.snowcoalstools.utils;
  *
  * hashable x/z position for a block
  *
- * can be used in a hash table to save/get some 3rd attribute from its x/z position
+ * Can be used as a map key to save/get some 3rd attribute from its x/z position
+ * Has a very fast hash function
  */
 public class XZBlock {
     public int posX;

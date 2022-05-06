@@ -19,3 +19,7 @@ commands:
     description: converts terrain blocks to slabs and stairs
     aliases: /smss
     usage: //smoothstairslab
+  /watererode:
+    description: performs a water erosion simulation on the terrain
+    aliases: /werode
+    usage: //watererode

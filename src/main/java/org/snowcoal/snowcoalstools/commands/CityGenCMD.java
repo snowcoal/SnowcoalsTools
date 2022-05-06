@@ -146,7 +146,7 @@ public class CityGenCMD implements CommandExecutor {
             try {
                 city.paster.pasteCity(player);
             } catch(Exception e){
-                instance.getLogger().log(Level.SEVERE, String.valueOf(e.getStackTrace()));
+                this.instance.printException(e);
                 msgSender.sendMessage(sender, pasteFail);
                 return true;
             }

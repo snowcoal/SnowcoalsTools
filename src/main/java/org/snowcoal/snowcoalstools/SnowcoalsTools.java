@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.snowcoal.snowcoalstools.commands.CityGenCMD;
 import org.snowcoal.snowcoalstools.commands.HouseSetCMD;
 import org.snowcoal.snowcoalstools.commands.SmoothStairSlabCMD;
+import org.snowcoal.snowcoalstools.commands.WaterErosionCMD;
 import org.snowcoal.snowcoalstools.houseset.HouseSet;
 import org.snowcoal.snowcoalstools.smooth.BlockMap;
 
@@ -57,6 +58,7 @@ public final class SnowcoalsTools extends JavaPlugin {
         getCommand("citygen").setExecutor(new CityGenCMD(this, ms));
         getCommand("houseset").setExecutor(new HouseSetCMD(this, ms));
         getCommand("/smoothstairslab").setExecutor(new SmoothStairSlabCMD(this, ms));
+        getCommand("/watererode").setExecutor(new WaterErosionCMD(this, ms));
 
     }
 
@@ -67,6 +69,13 @@ public final class SnowcoalsTools extends JavaPlugin {
 
     public BlockMap getBlockMap(){
         return blockMap;
+    }
+
+    public void printException(Exception e){
+        this.getLogger().log(Level.SEVERE, String.valueOf(e));
+        for(StackTraceElement st:e.getStackTrace()) {
+            this.getLogger().log(Level.SEVERE, String.valueOf(st));
+        }
     }
 
 

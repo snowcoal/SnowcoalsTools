@@ -35,4 +35,24 @@ public class DoubleVec3 {
         y /= magnitude;
         z /= magnitude;
     }
+
+    /**
+     * scalarMultiply
+     *
+     * multiplies the vector by a scalar
+     */
+    public void scalarMultiply(double scalar){
+        x *= scalar;
+        y *= scalar;
+        z *= scalar;
+    }
+
+    /**
+     * add
+     *
+     * adds a vector to the current and returns a new vector
+     */
+    public DoubleVec3 add(DoubleVec3 a){
+        return new DoubleVec3(x + a.x, y + a.y, z + a.z);
+    }
 }
