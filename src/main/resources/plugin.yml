@@ -1,7 +1,7 @@
 name: Snowcoals-Tools
 version: '1.0'
 main: org.snowcoal.snowcoalstools.SnowcoalsTools
-api-version: 1.18
+api-version: 1.19
 authors: [ snowcoal ]
 description: various tools developed and used by snowcoal
 depend: [FastAsyncWorldEdit]
@@ -23,3 +23,7 @@ commands:
     description: performs a water erosion simulation on the terrain
     aliases: /werode
     usage: //watererode
+  scanblocks:
+    description: scans the blocks to get their ordinals
+    aliases: /sblocks
+    usage: /scanblocks

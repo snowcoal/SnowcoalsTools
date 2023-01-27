@@ -380,6 +380,7 @@ public class SmoothStairSlab {
             case "minecraft:smooth_sandstone": return BlockMap.Blocks.SMOOTH_SANDSTONE;
             case "minecraft:red_sandstone": return BlockMap.Blocks.RED_SANDSTONE;
             case "minecraft:smooth_red_sandstone": return BlockMap.Blocks.SMOOTH_RED_SANDSTONE;
+            case "minecraft:prismarine": return BlockMap.Blocks.PRISMARINE;
 
         }
         return null;

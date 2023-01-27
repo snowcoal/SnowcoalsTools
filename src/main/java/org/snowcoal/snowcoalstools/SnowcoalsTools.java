@@ -9,10 +9,7 @@ import java.util.logging.Logger;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import org.snowcoal.snowcoalstools.commands.CityGenCMD;
-import org.snowcoal.snowcoalstools.commands.HouseSetCMD;
-import org.snowcoal.snowcoalstools.commands.SmoothStairSlabCMD;
-import org.snowcoal.snowcoalstools.commands.WaterErosionCMD;
+import org.snowcoal.snowcoalstools.commands.*;
 import org.snowcoal.snowcoalstools.houseset.HouseSet;
 import org.snowcoal.snowcoalstools.smooth.BlockMap;
 
@@ -59,6 +56,7 @@ public final class SnowcoalsTools extends JavaPlugin {
         getCommand("houseset").setExecutor(new HouseSetCMD(this, ms));
         getCommand("/smoothstairslab").setExecutor(new SmoothStairSlabCMD(this, ms));
         getCommand("/watererode").setExecutor(new WaterErosionCMD(this, ms));
+        getCommand("scanblocks").setExecutor(new BlockScannerCMD(this, ms));
 
     }
 
