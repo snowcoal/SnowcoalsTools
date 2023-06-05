@@ -6,7 +6,7 @@ The various features are listed below:
     Java version of CityGenerator
     FAWE command that does a water erosion simulation on terrain
     FAWE command that smooths terrain into stairs and slabs. Works with overhangs/caves/etc
-    FAWE command that does a 3 dimensional blur. Works with overhangs/caves/etc
+    FAWE command that does a 3 dimensional terrain smoothing operation. Works with overhangs/caves/etc
 
 # CityGenerator Command
 
