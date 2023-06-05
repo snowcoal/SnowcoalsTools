@@ -1,6 +1,7 @@
 package org.snowcoal.snowcoalstools.erode;
 
 import com.sk89q.worldedit.EditSession;
+import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.extension.platform.Actor;
 import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
@@ -19,6 +20,7 @@ import com.sk89q.worldedit.world.block.BlockTypes;
 import org.snowcoal.snowcoalstools.SnowcoalsTools;
 import org.snowcoal.snowcoalstools.utils.DoubleVec3;
 import org.snowcoal.snowcoalstools.utils.HeightMap;
+import org.snowcoal.snowcoalstools.utils.NearestBlockStateFinder;
 import org.snowcoal.snowcoalstools.utils.XZBlock;
 
 import java.util.*;
@@ -135,10 +137,28 @@ abstract class HeightMapErosion {
                 int maxHeight = (int) Math.round(heightMap.getHeight(x - min.getX(), z - min.getZ()));
                 // loop y
                 for (int y = min.getY(); y <= max.getY(); y++) {
-                    // set all y values under max to the block
+                    // set all y values under max that werent air in original the nearest block
                     if(y <= maxHeight){
-                        pasteClipboard.setBlock(x, y, z, (BlockStateHolder) block);
-                        changedBlocks ++;
+                        // pasteClipboard.setBlock(x, y, z, (BlockStateHolder) block);
+                        BlockState blockState = editSession.getBlock(x, y, z);
+                        if(blockState.isAir()){
+                            pasteClipboard.setBlock(x, y, z, (BlockStateHolder) new BlockState(BlockTypes.AIR, 0, 0));
+                        }
+                        else{
+                            // find nearest BlockState (to make output look similar to input)
+                            NearestBlockStateFinder finder = new NearestBlockStateFinder(this.sel, this.editSession, 100);
+                            BlockState closest = finder.findNearestBlockState(x, y, z);
+
+                            // if null default to air
+                            if(closest == null){
+                                pasteClipboard.setBlock(x, y, z, (BlockStateHolder) new BlockState(BlockTypes.AIR, 0, 0));
+                            }
+                            else{
+                                pasteClipboard.setBlock(x, y, z, (BlockStateHolder) closest);
+                            }
+
+                            changedBlocks ++;
+                        }
                     }
                     // put air everywhere else
                     else{
@@ -170,6 +190,8 @@ abstract class HeightMapErosion {
      * closes the editSession and MUST be called at the end of the command
      */
     public void endOperation(){
+        LocalSession localSession = WorldEdit.getInstance().getSessionManager().get(player);
+        localSession.remember(editSession);
         editSession.close();
     }
     

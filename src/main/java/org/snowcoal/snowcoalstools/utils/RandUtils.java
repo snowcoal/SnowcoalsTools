@@ -1,4 +1,4 @@
-package org.snowcoal.snowcoalstools;
+package org.snowcoal.snowcoalstools.utils;
 
 import java.util.Random;
 
@@ -8,11 +8,11 @@ import java.util.Random;
  * contains basic methods that are used for the city generator
  *
  */
-public class CityUtils {
+public class RandUtils {
     public Random random;
 
     // City Utilities constructor
-    public CityUtils(){
+    public RandUtils(){
         random = new Random();
     }
 

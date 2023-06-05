@@ -11,21 +11,18 @@ public class BlockScannerCMD  extends SelectionCMD {
     public BlockScannerCMD(SnowcoalsTools cg, MessageSender ms){ super(cg, ms); }
 
     @Override
-    boolean runCommand(SenderData senderData) {
+    boolean runCommand() {
         BlockScanner blockScanner = null;
         // attempt to run command
         try {
-            blockScanner = new BlockScanner(senderData.sel, senderData.player, senderData.instance);
+            blockScanner = new BlockScanner(sel, player, instance);
             blockScanner.scanBlocks();
         } catch(Exception e){
-            this.msgSender.sendMessage(senderData.sender, error);
+            this.msgSender.sendMessage(sender, error);
             this.instance.printException(e);
             return true;
         }
         return false;
     }
-
-    private final String logo = "(&3&lSNOWCOAL&r)&d ";
-    private final String error = "&cERROR: An error occurred while attempting to run this command";
 
 }

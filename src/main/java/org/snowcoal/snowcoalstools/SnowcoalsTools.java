@@ -57,6 +57,7 @@ public final class SnowcoalsTools extends JavaPlugin {
         getCommand("/smoothstairslab").setExecutor(new SmoothStairSlabCMD(this, ms));
         getCommand("/watererode").setExecutor(new WaterErosionCMD(this, ms));
         getCommand("scanblocks").setExecutor(new BlockScannerCMD(this, ms));
+        getCommand("/dim3smooth").setExecutor(new Dim3SmoothCMD(this, ms));
 
     }
 

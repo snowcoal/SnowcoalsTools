@@ -11,22 +11,19 @@ public class SmoothStairSlabCMD extends SelectionCMD{
     }
 
     @Override
-    boolean runCommand(SenderData senderData) {
+    boolean runCommand() {
         SmoothStairSlab smoothStairSlab = null;
         // attempt to run command
         try {
-            smoothStairSlab = new SmoothStairSlab(senderData.sel, senderData.player, senderData.instance);
+            smoothStairSlab = new SmoothStairSlab(sel, player, instance);
         } catch(Exception e){
-            this.msgSender.sendMessage(senderData.sender, error);
+            this.msgSender.sendMessage(sender, error);
             this.instance.printException(e);
             return true;
         }
 
         // success message
-        this.msgSender.sendMessage(senderData.sender, logo + smoothStairSlab.getChangedBlocks() + " Blocks were changed.");
+        this.msgSender.sendMessage(sender, logo + smoothStairSlab.getChangedBlocks() + " Blocks were changed.");
         return true;
     }
-
-    private final String logo = "(&3&lSNOWCOAL&r)&d ";
-    private final String error = "&cERROR: An error occurred while attempting to run this command";
 }

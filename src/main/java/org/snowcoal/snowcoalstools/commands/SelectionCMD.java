@@ -11,9 +11,15 @@ import org.jetbrains.annotations.NotNull;
 import org.snowcoal.snowcoalstools.MessageSender;
 import org.snowcoal.snowcoalstools.SnowcoalsTools;
 
-abstract class SelectionCMD implements CommandExecutor{
-    public SnowcoalsTools instance;
-    public MessageSender msgSender;
+abstract class SelectionCMD implements CommandExecutor, Runnable {
+    protected SnowcoalsTools instance;
+    protected MessageSender msgSender;
+    protected CommandSender sender;
+    protected Region sel;
+    protected Player player;
+    protected String[] args;
+
+    private Thread thread;
 
     public SelectionCMD(SnowcoalsTools cg, MessageSender ms){
         this.instance = cg;
@@ -38,13 +44,35 @@ abstract class SelectionCMD implements CommandExecutor{
             return true;
         }
 
+        // save for later
+        this.sender = sender;
+        this.sel = sel;
+        this.player = player;
+        this.args = args;
+
         // run new thread for command
-        return runCommand(new SenderData(instance, msgSender, sender, sel, player, args));
+        this.start();
+        return true;
     }
 
-    abstract boolean runCommand(SenderData senderData);
+    @Override
+    public void run() {
+        runCommand();
+        thread = null;
+    }
+
+    public void start(){
+        if(thread == null){
+            thread = new Thread(this);
+            thread.start();
+        }
+    }
+
+    abstract boolean runCommand();
 
 
-    private final String playersOnly = "&cERROR: Only players can use this command.";
-    private final String noSelection = "&cERROR: Please make a selection first";
+    protected final String playersOnly = "&cERROR: Only players can use this command.";
+    protected final String noSelection = "&cERROR: Please make a selection first";
+    protected final String logo = "(&3&lSNOWCOAL&r)&d ";
+    protected final String error = "&cERROR: An error occurred while attempting to run this command";
 }

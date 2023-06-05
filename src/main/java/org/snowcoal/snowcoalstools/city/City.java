@@ -3,13 +3,16 @@ package org.snowcoal.snowcoalstools.city;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sk89q.worldedit.entity.Player;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.Polygonal2DRegion;
-import org.snowcoal.snowcoalstools.CityUtils;
+import org.snowcoal.snowcoalstools.utils.RandUtils;
 import org.snowcoal.snowcoalstools.houseset.HouseSet;
 
 public class City {
     // member vars
+
+    public Player player;
 
     // position of corner of city
 //    private int start_x = Integer.MAX_VALUE;
@@ -58,7 +61,7 @@ public class City {
     // maze generator
     private CityMaze mazeGen = null;
     // utilities object
-    public CityUtils utils = null;
+    public RandUtils utils = null;
     // city house placer object
     public CityHousePlacer placer = null;
     // city paster object
@@ -73,7 +76,9 @@ public class City {
     public List<CityHouse> houseList = null;
 
 
-    public City(int grid_box_width, int lr_bias, Polygonal2DRegion sel){
+    public City(Player player, int grid_box_width, int lr_bias, Polygonal2DRegion sel){
+        this.player = player;
+
         // find minimum corner bounding box of region
         BlockVector3 min_point = sel.getMinimumPoint();
         start_x = min_point.getX();
@@ -93,7 +98,7 @@ public class City {
         cityLength = sel.getLength();
 
         // init member objects
-        utils = new CityUtils();
+        utils = new RandUtils();
         mazeGen = new CityMaze(this);
         placer = new CityHousePlacer(this);
         paster = new CityPaster(this);

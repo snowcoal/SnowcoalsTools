@@ -25,5 +25,7 @@ commands:
     usage: //watererode
   scanblocks:
     description: scans the blocks to get their ordinals
-    aliases: /sblocks
     usage: /scanblocks
+  /dim3smooth:
+    description: does a 3-dimensional smoothing operation
+    usage: //dim3smooth

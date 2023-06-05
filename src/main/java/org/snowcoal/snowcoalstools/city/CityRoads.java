@@ -1,12 +1,12 @@
 package org.snowcoal.snowcoalstools.city;
 
-import org.snowcoal.snowcoalstools.CityUtils;
+import org.snowcoal.snowcoalstools.utils.RandUtils;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CityRoads {
     private City city = null;
-    private CityUtils utils = null;
+    private RandUtils utils = null;
 
     // constants
     private final int NUM_LOOP_PASSES = 2;

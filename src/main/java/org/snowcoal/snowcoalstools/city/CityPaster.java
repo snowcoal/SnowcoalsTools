@@ -1,6 +1,7 @@
 package org.snowcoal.snowcoalstools.city;
 
 import com.fastasyncworldedit.core.math.MutableBlockVector3;
+import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
 import com.sk89q.worldedit.function.mask.Mask;
 import com.sk89q.worldedit.function.operation.ForwardExtentCopy;
@@ -22,14 +23,42 @@ import org.snowcoal.snowcoalstools.houseset.HouseSet;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class CityPaster {
+public class CityPaster implements Runnable{
     private City city;
+    private Thread thread;
+    private Player player;
 
     public CityPaster(City city){
         this.city = city;
+        this.player = city.player;
     }
 
-    public boolean pasteCity(Player player) {
+    @Override
+    public void run() {
+        pasteCityThread();
+        thread = null;
+    }
+
+    /**
+     * pasteCity
+     *
+     * public method to paste city
+     *
+     */
+    public void pasteCity(){
+        if (thread == null) {
+            thread = new Thread(this);
+            thread.start();
+        }
+    }
+
+    /**
+     * pasteCityThread
+     *
+     * thread that pastes city into world
+     *
+     */
+    private boolean pasteCityThread() {
         int y_paste = player.getLocation().getBlockY();
 
         HouseSet houseSet = city.getHouseSet();
@@ -129,6 +158,8 @@ public class CityPaster {
         Operations.complete(operation);
 
         // close editsession
+        LocalSession localSession = WorldEdit.getInstance().getSessionManager().get(player);
+        localSession.remember(editSession);
         editSession.close();
         return true;
     }
