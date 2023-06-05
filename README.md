@@ -1,13 +1,16 @@
 # SnowcoalsTools
 
-This is a plugin made by me (snowcoal) that has various building tools that I wanted and then made. The various features are listed below:
+This is a plugin made by me (snowcoal) that has various building tools that I wanted and then made. It uses the FastAsyncWorldEdit API and thus requires it installed on the server.
+The various features are listed below:
 
     Java version of CityGenerator
-    Command that smooths terrain into stairs and slabs
+    FAWE command that does a water erosion simulation on terrain
+    FAWE command that smooths terrain into stairs and slabs. Works with overhangs/caves/etc
+    FAWE command that does a 3 dimensional blur. Works with overhangs/caves/etc
 
 # CityGenerator Command
 
-This is a command that generates cities using a maze-based algorithm. It uses the FastAsyncWorldEdit API and thus requires it installed on the server.
+This is a tool that generates cities using a maze-based algorithm.
 
 Most of the code for this was directly copied from my C++ CityGenerator project, and some conversions were done to fix syntax stuff.
 Thus, there are often comments or variable names referring to pointers, even though Java does not have pointers. There might also be comments
@@ -49,9 +52,14 @@ To run ```/citygen genbase```, first make a 2D polygonal selection of where the 
 After the base of the city is generated, the houses can then be added and the city pasted in. A houseset must be loaded before this can take place. To paste
 the final city, run ```/citygen gencity``` which will paste it at the height of the player
 
+# WaterErode Command
+
+This command does a water erosion simulation on the terrian and erodes it. This is simply done with the ```//watererode``` or ```//werode``` command on a selected area.
+This will add channels into the terrain. A smoothing operation is done as well to clean up noise.
+
 # SmoothStairSlab Command
 
-I added a command that smooths common terrain blocks into stairs and slabs. The idea is similar to the FAWE //smoothsnow command, however the implementation is
+This command smooths terrain into stairs and slabs. The idea is similar to the FAWE //smoothsnow command, however the implementation is
 completely different. To run, do ```//smoothstairslab``` or ```//smss``` after making a selection. It works upside down and right side up, in caves, regardless
 of how many overhangs there might be. Basically theres zero restrictions for where it will work and where it wont (However note that it will likely fail if
 you attempt to smooth a 1-block thick surface). Also, it works best when the terrain is already somewhat smooth, as no actual mathematical "smoothing"
@@ -60,6 +68,19 @@ you attempt to smooth a 1-block thick surface). Also, it works best when the ter
 This command also has a pretty good running time of O(n*logk), where n is the number of blocks being changed into stairs/slabs, and k is the average number
 of overhangs for each (X,Z) coordinate. Since there are usually under 10 overhangs, it means that the command more or less has an O(n) run time.
 
+# Dim3Smooth Command
+
+This command does a 3-Dimensional Guassian blur on terrain. It is functionally similar to the FAWE //smooth command.
+The command is ```//dim3smooth <FilterSize> <NumIterations> <Cutoff>```. The first parameter filterSize is the size of the smoothing filter.
+This needs to be an odd number greater or equal to 3. The larger the number, the larger the area is sampled for the smoothing. Higher numbers can significantly increase runtime.
+The second parameter numIterations is optional, and the default is 1. This parameter sets how many smoothing operations are done.
+For example, running "//dim3smooth 3 2" is equivlant to running "//dim3smooth 3" twice.
+The third parameter cutoff is also optional and advanced. This parameter sets the cutoff value for when to place blocks or place air. The default is 0.5.
+Setting it higher will make objects smaller, and will make caves wider. Setting it lower will make objects larger, but will make caves thinner. Setting it too small will increase
+run time, due to how new blocks are decided.
+
+The run time of this command is O(n^3 * (k^3 + s)). n is the width (assuming square) of the selection, k is the width of the filter, and s is the average number of blocks that need
+to be searched to add a new one (s is only a consideration if the cutoff is set low).
 
 # TODO
 
@@ -70,15 +91,12 @@ of overhangs for each (X,Z) coordinate. Since there are usually under 10 overhan
 
 # Known Issues
 
-    Making larger (>2000 block) wide cities usually crashes the server
     No permissions currently
-    /undo sometimes works and sometimes doesnt for both city generator and smoothstairslab
 
 # Future Enchancements
 
     Thermal erosion
     //wall command to automatically generate stone walls for farms
-    3d smoothing
     hexagonal city generator
 
 # Notable References
