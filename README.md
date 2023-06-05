@@ -71,6 +71,7 @@ of overhangs for each (X,Z) coordinate. Since there are usually under 10 overhan
 # Dim3Smooth Command
 
 This command does a 3-Dimensional Guassian blur on terrain. It is functionally similar to the FAWE //smooth command.
+However, the difference is that this command works with caves, overhangs, cliffs, and even large trees. It doesnt matter what the shape of the terrain is, it will smooth it.
 The command is ```//dim3smooth <FilterSize> <NumIterations> <Cutoff>```. The first parameter filterSize is the size of the smoothing filter.
 This needs to be an odd number greater or equal to 3. The larger the number, the larger the area is sampled for the smoothing. Higher numbers can significantly increase runtime.
 The second parameter numIterations is optional, and the default is 1. This parameter sets how many smoothing operations are done.
