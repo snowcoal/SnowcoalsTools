@@ -5,8 +5,6 @@ import org.snowcoal.snowcoalstools.MessageSender;
 import org.snowcoal.snowcoalstools.smooth.BlockScanner;
 
 public class BlockScannerCMD  extends SelectionCMD {
-    private SnowcoalsTools instance;
-    private MessageSender msgSender = null;
 
     public BlockScannerCMD(SnowcoalsTools cg, MessageSender ms){ super(cg, ms); }
 
