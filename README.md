@@ -106,7 +106,11 @@ to be searched to add a new one (s is only a consideration if the cutoff is set 
     //wall command to automatically generate stone walls for farms
     hexagonal city generator
 
-# Notable References
+# Contributors
+
+    Omega - updated //smoothstairslab command to 1.20.1 and wrote new generator script for API changes
+
+# Notable Code References
 
     Big thanks to Job Talle's blog for the erosion simulation algorithm:
         https://jobtalle.com/simulating_hydraulic_erosion.html
@@ -117,6 +121,3 @@ to be searched to add a new one (s is only a consideration if the cutoff is set 
     I would be nowhere without the FAWE github:
         https://github.com/IntellectualSites/FastAsyncWorldEdit
 
-# Contributors
-
-    Omega - updated //smoothstairslab command to 1.20.1 and wrote new generator script for API changes
