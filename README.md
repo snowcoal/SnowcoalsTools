@@ -8,6 +8,8 @@ The various features are listed below:
     FAWE command that smooths terrain into stairs and slabs. Works with overhangs/caves/etc
     FAWE command that does a 3 dimensional terrain smoothing operation. Works with overhangs/caves/etc
 
+This plugin works in 1.18 - 1.20.1, however the //smoothstairslab command only works in certain versions
+
 # CityGenerator Command
 
 This is a tool that generates cities using a maze-based algorithm.
@@ -59,6 +61,9 @@ This will add channels into the terrain. A smoothing operation is done as well t
 
 # SmoothStairSlab Command
 
+THIS COMMAND IS ONLY ENABLED IN THE FOLLOWING VERSIONS: 1.18.1, 1.19.3, 1.20.1
+This is due to how I place stairs and slabs with specific orientations using FAWE
+
 This command smooths terrain into stairs and slabs. The idea is similar to the FAWE //smoothsnow command, however the implementation is
 completely different. To run, do ```//smoothstairslab``` or ```//smss``` after making a selection. It works upside down and right side up, in caves, regardless
 of how many overhangs there might be. Basically theres zero restrictions for where it will work and where it wont (However note that it will likely fail if
@@ -96,6 +101,7 @@ to be searched to add a new one (s is only a consideration if the cutoff is set 
 
 # Future Enchancements
 
+    Command to place structures around a shell without going inside it
     Thermal erosion
     //wall command to automatically generate stone walls for farms
     hexagonal city generator
@@ -110,3 +116,7 @@ to be searched to add a new one (s is only a consideration if the cutoff is set 
 
     I would be nowhere without the FAWE github:
         https://github.com/IntellectualSites/FastAsyncWorldEdit
+
+# Contributors
+
+    Omega - updated //smoothstairslab command to 1.20.1 and wrote new generator script for API changes

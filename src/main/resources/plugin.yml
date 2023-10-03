@@ -1,7 +1,7 @@
 name: Snowcoals-Tools
 version: '1.0'
 main: org.snowcoal.snowcoalstools.SnowcoalsTools
-api-version: 1.19
+api-version: '1.18'
 authors: [ snowcoal ]
 description: various tools developed and used by snowcoal
 depend: [FastAsyncWorldEdit]

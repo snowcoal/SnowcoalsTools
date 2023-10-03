@@ -13,6 +13,13 @@ public class SmoothStairSlabCMD extends SelectionCMD{
     @Override
     boolean runCommand() {
         SmoothStairSlab smoothStairSlab = null;
+
+        // if SMSS is NOT enabled
+        if(!instance.getBlockMap().isSMSSEnabled()){
+            this.msgSender.sendMessage(sender, logo + " SMSS Command is not supported for this version!");
+            return false;
+        }
+
         // attempt to run command
         try {
             smoothStairSlab = new SmoothStairSlab(sel, player, instance);

@@ -26,7 +26,6 @@ public final class SnowcoalsTools extends JavaPlugin {
         // check for worldedit
         Plugin fawe = getServer().getPluginManager().getPlugin("FastAsyncWorldEdit");
         if(fawe.equals(null) || !(fawe instanceof WorldEditPlugin)){
-            System.out.println("FAWE required for snowcoalsTools, please install it");
             this.getLogger().log(Level.SEVERE, "FAWE required for snowcoalsTools, please install it");
             return;
         }
@@ -48,7 +47,7 @@ public final class SnowcoalsTools extends JavaPlugin {
         }
 
         this.houseSet = new HouseSet();
-        this.blockMap = new BlockMap();
+        this.blockMap = new BlockMap(this);
         MessageSender ms = new MessageSender();
 
         // register commands

@@ -19,42 +19,46 @@ with open('output.txt', 'w') as output_file:
     with open('blocks.csv', 'r') as csv_file:
         reader = csv.reader(csv_file)
 
-        t_count = 0
-        count = 0
         for row in reader:
             # desired output:
             # blockMap.put(new BlockInput(Blocks.name, xzDirections.xzDir, yDirections.yDir), new BlockOutput(IID, ordinal));
 
+            # minecraft:stone_stairs,270733,10671,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+            # minecraft:stone_slab,5533,11301,{EnumProperty{name=type}=bottom, BooleanProperty{name=waterlogged}=false}
+
             iid = row[1]
             ordinal = row[2]
-            name = blocks[t_count]
+            name = str.split(str.split(row[0], ':')[1], '_')[0].upper()
+            type = "_" + str.split(str.split(row[0], ':')[1].upper(), name + "_")[1].upper()
+
+            fullName = name + type
+            if "SLAB" in fullName:
+                fullName = fullName.replace("_SLAB", "")
+            if "STAIRS" in fullName:
+                fullName = fullName.replace("_STAIRS", "")
 
             # slabs
-            if(row[3][1] == "E"):
+            if ("SLAB" in type):
                 xzDir = "SLAB"
-                btName = "_SLAB"
-                subrow = str.split(row[3], '=')
-                if(subrow[2] == "bottom"):
-                    yDir = "UP"
-                else:
+                topBottom = str.split(row[3], "EnumProperty{name=type}=")[1]
+                if(topBottom == "top"):
                     yDir = "DOWN"
+                else:
+                    yDir = "UP"
             
             # stairs
             else:
-                subrow = str.split(row[3], '=')
-                xzDir = subrow[2]
-                btName = "_STAIRS"
-                if(count < 4):
-                    yDir = "UP"
-                else:
+                # print(type)
+                xzDir = str.split(row[3], "DirectionalProperty{name=facing}=")[1]
+                topBottom = str.split(row[4], "EnumProperty{name=half}=")[1]
+                if(topBottom == "top"):
                     yDir = "DOWN"
+                else:
+                    yDir = "UP"
 
-            count += 1
-            if(count == 10):
-                t_count += 1
-                count = 0
+            print(name+type + ", " + iid + ", " + xzDir + ", " + yDir)
 
-            output = "blockMap.put(new BlockInput(Blocks."+name+", xzDirections."+xzDir+", yDirections."+yDir+"), new BlockOutput("+iid+", "+ordinal+", BlockTypes."+name+btName+"));\n"
+            output = "blockMap.put(new BlockInput(Blocks." + fullName + ", xzDirections." + xzDir + ", yDirections." + yDir + "), new BlockOutput(" + iid + ", " + ordinal + ", BlockTypes." + fullName + "));\n"
 
             output_file.write(output)
             
