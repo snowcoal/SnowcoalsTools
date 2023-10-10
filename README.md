@@ -3,12 +3,57 @@
 This is a plugin made by me (snowcoal) that has various building tools that I wanted and then made. It requires FastAsyncWorldEdit installed on the server.
 The various features are listed below:
 
-    Java version of CityGenerator
-    //waterrode command that does a water erosion simulation on terrain
     //smoothstairslab command that smooths terrain into stairs and slabs. Works with overhangs/caves/etc
     //dim3smooth command that does a 3 dimensional terrain Gaussian smoothing operation. Works with overhangs/caves/etc
+    //waterrode command that does a water erosion simulation on terrain
+    Java version of CityGenerator
 
 This plugin works in 1.18 - 1.20.1, however the //smoothstairslab command only works in certain versions
+
+# SmoothStairSlab Command
+
+THIS COMMAND IS ONLY ENABLED IN THE FOLLOWING VERSIONS: 1.18.1, 1.19.3, 1.20.1
+This is due to how I place stairs and slabs with specific orientations using FAWE
+
+This command smooths terrain into stairs and slabs. The idea is similar to the FAWE //smoothsnow command, however the implementation is
+completely different. To run, do ```//smoothstairslab``` or ```//smss``` after making a selection. It works upside down and right side up, in caves, regardless
+of how many overhangs there might be. Basically theres zero restrictions for where it will work and where it wont (However note that it can have noisy outputs if
+you attempt to smooth 1-block thick surfaces).
+
+Its important to note that this command works best when the terrain is already somewhat smooth.
+This can be easily accomplished by running the ```//dim3smooth``` command prior to running this command.
+
+This command is not fully deterministic, and is optimized to produce the "best-looking" output that I could find. The algorithm it does is quite complex and
+very dependent on the shape of the terrain. Thus, it has a varying running time, as it sometimes simply does some logical checks to determine the output block,
+and other times it does a 3D guassian smoothing convolution operation prior to placing some of the slabs. The approximate running time could be determined,
+but again, this is heavily dependent on the shape of the terrain. More "flat" areas typically means more convolutions and thus a slightly longer running time.
+
+# Dim3Smooth Command
+
+This command does a 3-Dimensional Guassian blur/smooth on terrain. It is functionally similar to the FAWE //smooth command.
+However, the difference is that this command works with caves, overhangs, cliffs, and even large trees. It doesnt matter what the shape of the terrain is, it will smooth it.
+The command is ```//dim3smooth <FilterSize> <NumIterations> <Cutoff>```.
+
+The first parameter filterSize is the size of the smoothing filter.
+The filter size determines how "blurred" the output is. A larger filter means that the output will have less rough corners/edges, and a smaller filter means it will have more.
+This needs to be an odd number greater or equal to 3. The larger the number, the larger the area is sampled for the smoothing. Higher numbers can significantly increase runtime.
+
+The second parameter numIterations is optional, and the default is 1. This parameter sets how many smoothing operations are done. For example, running "//dim3smooth 3 2"
+is equivlant to running "//dim3smooth 3" twice in a row.
+
+The third parameter cutoff is also optional and more advanced. This parameter sets the cutoff value for when to place blocks vs air. The default is 0.5.
+Setting it higher will remove more blocks and thus make objects become smaller, and will make caves wider. Setting it lower will add blocks, thus making objects larger,
+and making caves thinner. It is important to note that for every block that is added, a search must be done to determine which block is the closest to the one being added.
+This search is limited to 100 toal blocks for performance reasons, and also makes the runtime slower as more blocks are searched.
+
+The run time of this command is O(n * (k^3 + s)). n is the number of blocks in the selection, k is FilterSize, and s is the average number of blocks that need
+to be searched to add a new one (only relevant when new blocks are being added). For best performance, k should be set low (eg. 3-5),
+since increasing it causes significantly longer run times with higher k.
+
+# WaterErode Command
+
+This command does a water erosion simulation on the terrian and erodes it. This is simply done with the ```//watererode``` or ```//werode``` command on a selected area.
+This will add channels into the terrain. A smoothing operation is automatically done as well to clean up noise.
 
 # CityGenerator Command
 
@@ -53,51 +98,6 @@ To run ```/citygen genbase```, first make a 2D polygonal selection of where the 
 
 After the base of the city is generated, the houses can then be added and the city pasted in. A houseset must be loaded before this can take place. To paste
 the final city, run ```/citygen gencity``` which will paste it at the height of the player
-
-# WaterErode Command
-
-This command does a water erosion simulation on the terrian and erodes it. This is simply done with the ```//watererode``` or ```//werode``` command on a selected area.
-This will add channels into the terrain. A smoothing operation is automatically done as well to clean up noise.
-
-# SmoothStairSlab Command
-
-THIS COMMAND IS ONLY ENABLED IN THE FOLLOWING VERSIONS: 1.18.1, 1.19.3, 1.20.1
-This is due to how I place stairs and slabs with specific orientations using FAWE
-
-This command smooths terrain into stairs and slabs. The idea is similar to the FAWE //smoothsnow command, however the implementation is
-completely different. To run, do ```//smoothstairslab``` or ```//smss``` after making a selection. It works upside down and right side up, in caves, regardless
-of how many overhangs there might be. Basically theres zero restrictions for where it will work and where it wont (However note that it can have noisy outputs if
-you attempt to smooth 1-block thick surfaces).
-
-Its important to note that this command works best when the terrain is already somewhat smooth.
-This can be easily accomplished by running the ```//dim3smooth``` command prior to running this command.
-
-This command is not fully deterministic, and is optimized to produce the "best-looking" output that I could find. The algorithm it does is quite complex and
-very dependent on the shape of the terrain. Thus, it has a varying running time, as it sometimes simply does some logical checks to determine the output block,
-and other times it does a 3D guassian smoothing convolution operation prior to placing some of the slabs. The approximate running time could be determined,
-but again, this is heavily dependent on the shape of the terrain. More "flat" areas typically means more convolutions and thus a slightly longer running time.
-
-# Dim3Smooth Command
-
-This command does a 3-Dimensional Guassian blur/smooth on terrain. It is functionally similar to the FAWE //smooth command.
-However, the difference is that this command works with caves, overhangs, cliffs, and even large trees. It doesnt matter what the shape of the terrain is, it will smooth it.
-The command is ```//dim3smooth <FilterSize> <NumIterations> <Cutoff>```.
-
-The first parameter filterSize is the size of the smoothing filter.
-The filter size determines how "blurred" the output is. A larger filter means that the output will have less rough corners/edges, and a smaller filter means it will have more.
-This needs to be an odd number greater or equal to 3. The larger the number, the larger the area is sampled for the smoothing. Higher numbers can significantly increase runtime.
-
-The second parameter numIterations is optional, and the default is 1. This parameter sets how many smoothing operations are done. For example, running "//dim3smooth 3 2"
-is equivlant to running "//dim3smooth 3" twice in a row.
-
-The third parameter cutoff is also optional and more advanced. This parameter sets the cutoff value for when to place blocks vs air. The default is 0.5.
-Setting it higher will remove more blocks and thus make objects become smaller, and will make caves wider. Setting it lower will add blocks, thus making objects larger,
-and making caves thinner. It is important to note that for every block that is added, a search must be done to determine which block is the closest to the one being added.
-This search is limited to 100 toal blocks for performance reasons, and also makes the runtime slower as more blocks are searched.
-
-The run time of this command is O(n * (k^3 + s)). n is the number of blocks in the selection, k is FilterSize, and s is the average number of blocks that need
-to be searched to add a new one (only relevant when new blocks are being added). For best performance, k should be set low (eg. 3-5),
-since increasing it causes significantly longer run times with higher k.
 
 # Disclaimer
 
