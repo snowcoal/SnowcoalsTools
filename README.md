@@ -102,8 +102,8 @@ the final city, run ```/citygen gencity``` which will paste it at the height of 
 # Disclaimer
 
 This plugin was created by me for my personal singleplayer use. Becuase of that, this plugin was NOT designed to be used in multiplayer environments or with untrusted players.
-For example, there are no permissions. There are also often no bounds checks on selection sizes, as I like to test the plugin to its fullest. Therefore, it can and will
-crash your server if used improperly. Take backups and do not use this plugin on a public server.
+For example, there are no permissions. There are also often no bounds checks on maximum possible selection sizes, as I like to test the plugin to its fullest.
+Therefore, it can and will at least crash your server if used improperly. Take backups and do not use this plugin on a public server.
 
 Because of all this, there are currently no public releases of this plugin, and there probably won't ever be. To install this plugin, you must first compile it into a .jar.
 There is a pom.xml file included to help with this. Note that a 1.18+ release of FastAsyncWorldEdit must be also be linked as a library to the plugin prior to compilation.
