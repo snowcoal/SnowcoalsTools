@@ -17,19 +17,16 @@ import com.sk89q.worldedit.session.ClipboardHolder;
 import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockStateHolder;
 import com.sk89q.worldedit.world.block.BlockTypes;
+import org.snowcoal.snowcoalstools.utils.GuassConvKernel;
 import org.snowcoal.snowcoalstools.utils.NearestBlockStateFinder;
 
 import org.snowcoal.snowcoalstools.SnowcoalsTools;
-
-import java.lang.Math;
 
 public class Dim3Smooth {
     private Region sel;
     private Player player;
     private SnowcoalsTools instance;
     private int k;
-    private final double c = 1/Math.pow(2.0*Math.PI, 3.0/2.0);
-    private double[][][] kernel;
     private double cutoff = 0.5;
     private int changedBlocks = 0;
     private int numIterations = 1;
@@ -38,7 +35,7 @@ public class Dim3Smooth {
         this.sel = sel;
         this.player = player;
         this.instance = instance;
-        // k must be ODD and >= 3!!!
+
         this.k = k;
         this.cutoff = cutoff;
         this.numIterations = numIterations;
@@ -46,50 +43,6 @@ public class Dim3Smooth {
         smooth();
     }
 
-    /**
-     * gauss
-     *
-     * 3D Guassian distribution function
-     *
-     */
-    private double gauss(double x, double y, double z){
-        return c * Math.exp((-(Math.pow(x, 2.0) + Math.pow(y, 2.0) + Math.pow(z, 2.0)))/2.0);
-    }
-
-    /**
-     * genKernel
-     *
-     * generates a base guassian kernel of size k (this could be precomputed but whatever)
-     * output kernel is normalized, so distribution isnt 100% exact
-     */
-    private void genKernel(){
-        kernel = new double[k][k][k];
-
-        int center = k/2;
-        double sum = 0.0;
-
-        // first pass, find sum
-        for (int x = 0; x < k; x++){
-            for (int y = 0; y < k; y++){
-                for (int z = 0; z < k; z++){
-                    double g = gauss((double)(center - x), (double)(center - y), (double)(center - z));
-                    kernel[x][y][z] = g;
-                    sum += g;
-                }
-            }
-        }
-
-        double c = (1 - sum)/(double)(k*k*k);
-
-        // second pass, add constant to each to normalize
-        for (int x = 0; x < k; x++){
-            for (int y = 0; y < k; y++){
-                for (int z = 0; z < k; z++){
-                    kernel[x][y][z] += c;
-                }
-            }
-        }
-    }
 
     /**
      * smooth
@@ -112,8 +65,6 @@ public class Dim3Smooth {
 
         // padding for outside kernel (if 3x3x3, = 1)
         int pad = k / 2;
-        // generate kernel
-        genKernel();
 
         // find bounds for changed area
         MutableBlockVector3 outputMin = new MutableBlockVector3(min.getX() + pad, min.getY() + pad, min.getZ() + pad);
@@ -123,26 +74,20 @@ public class Dim3Smooth {
         Extent srcExtent = editSession;
         Extent dstExtent = createCopyClipboard(editSession, min, max);
 
+        // generate kernel
+        GuassConvKernel guassConvKernel = new GuassConvKernel(srcExtent, k);
+
         // smooth some number of times
         for(int i = 0; i < numIterations; i++) {
-
 
             // loop through all blocks in output (padding around outside)
             for (int x = outputMin.getX(); x <= outputMax.getX(); x++) {
                 for (int y = outputMin.getY(); y <= outputMax.getY(); y++) {
                     for (int z = outputMin.getZ(); z <= outputMax.getZ(); z++) {
-                        double sum = 0.0;
 
-                        // loop through kernel
-                        for (int kx = -pad; kx <= pad; kx++) {
-                            for (int ky = -pad; ky <= pad; ky++) {
-                                for (int kz = -pad; kz <= pad; kz++) {
-                                    // double blockVal = editSession.getBlock(x + kx, y + ky, z + kz).isAir() ? 0.0 : 1.0;
-                                    double blockVal = srcExtent.getBlock(x + kx, y + ky, z + kz).isAir() ? 0.0 : 1.0;
-                                    sum += blockVal * kernel[kx + pad][ky + pad][kz + pad];
-                                }
-                            }
-                        }
+                        // convolve at current block
+                        double sum = guassConvKernel.guassConvolve(x, y, z);
+
                         // decide whether to set it to air or not
                         if (sum < cutoff) {
                             dstExtent.setBlock(x, y, z, (BlockStateHolder) new BlockState(BlockTypes.AIR, 0, 0));

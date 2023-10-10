@@ -10,6 +10,7 @@ import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockStateHolder;
+import org.snowcoal.snowcoalstools.utils.GuassConvKernel;
 import org.snowcoal.snowcoalstools.utils.XZBlock;
 
 import java.util.*;
@@ -27,6 +28,16 @@ public class SmoothStairSlab {
     private final int MISSING_Y_OFFSET = 2;
     private Random random;
     private int changedBlocks = 0;
+    private final int convK = 5;
+    private final int convPad = convK/2;
+    // constants derived from normal distribution ~(mu=0.5, sigma=1)
+    // the constants are where the distribution has area=0.25 in ranges [thresholdMin - 0.5, 0.5] and [0.5, 0.5 + thresholdMax]
+    // theoretically, they should be this:
+    // min = 0.325510249804
+    // max = 0.674489750196
+    // but these values seem to work better:
+    private final double convThresholdMin = 0.305;
+    private final double convThresholdMax = 0.695;
 
     public SmoothStairSlab(Region sel, Player player, SnowcoalsTools instance) {
         this.sel = sel;
@@ -61,56 +72,61 @@ public class SmoothStairSlab {
         // set up lists to store 2 types of blocks
         List<Block> airAboveBlocks = new ArrayList<>();
         List<Block> airBelowBlocks = new ArrayList<>();
-        // System.out.println("min: " + min + " max: " + max);
 
         // loop through all blocks in selection
         for (int x = min.getX(); x <= max.getX(); x++) {
             for (int z = min.getZ(); z <= max.getZ(); z++) {
                 for (int y = min.getY(); y <= max.getY(); y++) {
                     // ensure the selection contains the block
-                    if (this.sel.contains(x, y, z)) {
-                        BlockState block = editSession.getBlock(x, y, z);
-                        // check if its not air
-                        if (!block.isAir()) {
-                            // check if its a changeable block
-                            BlockMap.Blocks blockType = isChangeable(block);
-                            if (blockType != null) {
-                                // check the blocks above and below
-                                BlockState above = editSession.getBlock(x, y + 1, z);
-                                BlockState below = editSession.getBlock(x, y - 1, z);
-                                boolean airAbove = above.isAir();
-                                boolean airBelow = below.isAir();
+                    if (!this.sel.contains(x, y, z)) {
+                        continue;
+                    }
+                    // check if its not air
+                    BlockState block = editSession.getBlock(x, y, z);
+                    if (block.isAir()) {
+                        continue;
+                    }
+                    // check if its a changeable block
+                    BlockMap.Blocks blockType = isChangeable(block);
+                    if (blockType == null) {
+                        continue;
+                    }
 
-                                // determine which set it needs to go in
-                                if (!airAbove || !airBelow)
-                                    if (airAbove) {
-                                        airAboveBlocks.add(new Block(blockType, x, y, z));
-                                        XZBlock xzBlock = new XZBlock(x, z);
-                                        // attempt to get a list from the hashmap
-                                        ArrayList<Integer> yList = airAboveMap.get(xzBlock);
-                                        // if no list exists yet make one
-                                        if(yList == null){
-                                            yList = new ArrayList<>();
-                                            airAboveMap.put(xzBlock, yList);
-                                        }
-                                        // list will be sorted since y from min to max
-                                        yList.add(y);
-                                    }
-                                    else if (airBelow) {
-                                        airBelowBlocks.add(new Block(blockType, x, y, z));
-                                        XZBlock xzBlock = new XZBlock(x, z);
-                                        // attempt to get a list from the hashmap
-                                        ArrayList<Integer> yList = airBelowMap.get(xzBlock);
-                                        // if no list exists yet make one
-                                        if(yList == null){
-                                            yList = new ArrayList<>();
-                                            airBelowMap.put(xzBlock, yList);
-                                        }
-                                        // list will be sorted since y from min to max
-                                        yList.add(y);
-                                    }
-                            }
+                    // check the blocks above and below
+                    BlockState above = editSession.getBlock(x, y + 1, z);
+                    BlockState below = editSession.getBlock(x, y - 1, z);
+                    boolean airAbove = above.isAir();
+                    boolean airBelow = below.isAir();
+
+                    // make sure the block doesnt have both air above and below it
+                    if (airAbove && airBelow){
+                        continue;
+                    }
+                    if (airAbove) {
+                        airAboveBlocks.add(new Block(blockType, x, y, z));
+                        XZBlock xzBlock = new XZBlock(x, z);
+                        // attempt to get a list from the hashmap
+                        ArrayList<Integer> yList = airAboveMap.get(xzBlock);
+                        // if no list exists yet make one
+                        if (yList == null) {
+                            yList = new ArrayList<>();
+                            airAboveMap.put(xzBlock, yList);
                         }
+                        // list will be sorted since y from min to max
+                        yList.add(y);
+                    }
+                    if (airBelow) {
+                        airBelowBlocks.add(new Block(blockType, x, y, z));
+                        XZBlock xzBlock = new XZBlock(x, z);
+                        // attempt to get a list from the hashmap
+                        ArrayList<Integer> yList = airBelowMap.get(xzBlock);
+                        // if no list exists yet make one
+                        if (yList == null) {
+                            yList = new ArrayList<>();
+                            airBelowMap.put(xzBlock, yList);
+                        }
+                        // list will be sorted since y from min to max
+                        yList.add(y);
                     }
                 }
             }
@@ -119,9 +135,14 @@ public class SmoothStairSlab {
         // make list for all blocks that need to be changed at the end
         List<ChangeBlock> changeBlocks = new ArrayList<>();
 
+        // setup convolution kernel for slabs
+        GuassConvKernel guassConvKernel = new GuassConvKernel(editSession, convK);
+
         // go through all blocks with air above
         for (Block block : airAboveBlocks) {
+            int pX = block.posX;
             int pY = block.posY;
+            int pZ = block.posZ;
 
             // get 4 neighbors of block
             int negX_Y = getNeighborYAbove(editSession, block, -1, 0);
@@ -143,8 +164,22 @@ public class SmoothStairSlab {
 
             // if 1 slope is 0 and the other is 1 or both are 1 its a slab
             if(absXSlope == 1 || absZSlope == 1) {
-                // add block to list of changed blocks and move to next one
                 changeBlocks.add(new ChangeBlock(block, instance.getBlockMap().getBlock(block.type, BlockMap.xzDirections.SLAB, BlockMap.yDirections.UP)));
+                continue;
+            }
+
+            // if both slopes are zero, try convolution to determine if its a slab
+            if(absXSlope == 0 && absZSlope == 0) {
+                // bounds check
+                if(!guassConvKernel.checkKernelBounds(sel, pX, pY, pZ)){
+                    continue;
+                }
+
+                // perform convolution, if sum is within threshold, add block
+                double sum = guassConvKernel.guassConvolve(pX, pY, pZ);
+                if(sum > convThresholdMin && sum < convThresholdMax) {
+                    changeBlocks.add(new ChangeBlock(block, instance.getBlockMap().getBlock(block.type, BlockMap.xzDirections.SLAB, BlockMap.yDirections.UP)));
+                }
                 continue;
             }
 
@@ -190,7 +225,9 @@ public class SmoothStairSlab {
 
         // go through all blocks with air below
         for (Block block : airBelowBlocks) {
+            int pX = block.posX;
             int pY = block.posY;
+            int pZ = block.posZ;
 
             // get 4 neighbors of block
             int negX_Y = getNeighborYBelow(editSession, block, -1, 0);
@@ -212,8 +249,22 @@ public class SmoothStairSlab {
 
             // if 1 slope is 0 and the other is 1 or both are 1 its a slab
             if(absXSlope == 1 || absZSlope == 1){
-                // add block to list of changed blocks and move to next one
                 changeBlocks.add(new ChangeBlock(block, instance.getBlockMap().getBlock(block.type, BlockMap.xzDirections.SLAB, BlockMap.yDirections.DOWN)));
+                continue;
+            }
+
+            // if both slopes are zero, try convolution to determine if its a slab
+            if(absXSlope == 0 && absZSlope == 0) {
+                // bounds check
+                if(!guassConvKernel.checkKernelBounds(sel, pX, pY, pZ)){
+                    continue;
+                }
+
+                // perform convolution, if sum is within threshold, add block
+                double sum = guassConvKernel.guassConvolve(pX, pY, pZ);
+                if(sum > convThresholdMin && sum < convThresholdMax) {
+                    changeBlocks.add(new ChangeBlock(block, instance.getBlockMap().getBlock(block.type, BlockMap.xzDirections.SLAB, BlockMap.yDirections.DOWN)));
+                }
                 continue;
             }
 
