@@ -1,0 +1,110 @@
+minecraft:stone_stairs,270733,10671,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:granite_stairs,270363,1373,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:diorite_stairs,270377,1494,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:andesite_stairs,271294,23313,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobblestone_stairs,270857,13253,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:mossy_cobblestone_stairs,271136,19172,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:blackstone_stairs,270351,1088,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobbled_deepslate_stairs,270826,12974,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:prismarine_stairs,271008,16389,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:red_sandstone_stairs,270447,3151,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:sandstone_stairs,270715,9280,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:stone_stairs,273805,10674,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:granite_stairs,273435,1376,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:diorite_stairs,273449,1497,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:andesite_stairs,274366,23316,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobblestone_stairs,273929,13256,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:mossy_cobblestone_stairs,274208,19175,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:blackstone_stairs,273423,1091,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobbled_deepslate_stairs,273898,12977,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:prismarine_stairs,274080,16392,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:red_sandstone_stairs,273519,3154,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:sandstone_stairs,273787,9283,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:stone_stairs,271757,10672,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:granite_stairs,271387,1374,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:diorite_stairs,271401,1495,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:andesite_stairs,272318,23314,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobblestone_stairs,271881,13254,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:mossy_cobblestone_stairs,272160,19173,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:blackstone_stairs,271375,1089,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobbled_deepslate_stairs,271850,12975,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:prismarine_stairs,272032,16390,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:red_sandstone_stairs,271471,3152,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:sandstone_stairs,271739,9281,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:stone_stairs,272781,10673,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:granite_stairs,272411,1375,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:diorite_stairs,272425,1496,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:andesite_stairs,273342,23315,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobblestone_stairs,272905,13255,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:mossy_cobblestone_stairs,273184,19174,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:blackstone_stairs,272399,1090,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobbled_deepslate_stairs,272874,12976,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:prismarine_stairs,273056,16391,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:red_sandstone_stairs,272495,3153,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:sandstone_stairs,272763,9282,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=bottom, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:stone_stairs,262541,10667,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:granite_stairs,262171,1369,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:diorite_stairs,262185,1490,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:andesite_stairs,263102,23309,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobblestone_stairs,262665,13249,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:mossy_cobblestone_stairs,262944,19168,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:blackstone_stairs,262159,1084,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobbled_deepslate_stairs,262634,12970,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:prismarine_stairs,262816,16385,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:red_sandstone_stairs,262255,3147,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:sandstone_stairs,262523,9276,{DirectionalProperty{name=facing}=NORTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:stone_stairs,264589,10669,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:granite_stairs,264219,1371,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:diorite_stairs,264233,1492,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:andesite_stairs,265150,23311,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobblestone_stairs,264713,13251,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:mossy_cobblestone_stairs,264992,19170,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:blackstone_stairs,264207,1086,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobbled_deepslate_stairs,264682,12972,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:prismarine_stairs,264864,16387,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:red_sandstone_stairs,264303,3149,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:sandstone_stairs,264571,9278,{DirectionalProperty{name=facing}=WEST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:stone_stairs,263565,10668,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:granite_stairs,263195,1370,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:diorite_stairs,263209,1491,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:andesite_stairs,264126,23310,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobblestone_stairs,263689,13250,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:mossy_cobblestone_stairs,263968,19169,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:blackstone_stairs,263183,1085,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobbled_deepslate_stairs,263658,12971,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:prismarine_stairs,263840,16386,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:red_sandstone_stairs,263279,3148,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:sandstone_stairs,263547,9277,{DirectionalProperty{name=facing}=SOUTH, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:stone_stairs,265613,10670,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:granite_stairs,265243,1372,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:diorite_stairs,265257,1493,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:andesite_stairs,266174,23312,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobblestone_stairs,265737,13252,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:mossy_cobblestone_stairs,266016,19171,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:blackstone_stairs,265231,1087,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:cobbled_deepslate_stairs,265706,12973,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:prismarine_stairs,265888,16388,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:red_sandstone_stairs,265327,3150,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:sandstone_stairs,265595,9279,{DirectionalProperty{name=facing}=EAST, EnumProperty{name=half}=top, EnumProperty{name=shape}=straight, BooleanProperty{name=waterlogged}=false}
+minecraft:stone_slab,5533,11301,{EnumProperty{name=type}=bottom, BooleanProperty{name=waterlogged}=false}
+minecraft:granite_slab,5831,17314,{EnumProperty{name=type}=bottom, BooleanProperty{name=waterlogged}=false}
+minecraft:diorite_slab,5985,21699,{EnumProperty{name=type}=bottom, BooleanProperty{name=waterlogged}=false}
+minecraft:andesite_slab,5425,7199,{EnumProperty{name=type}=bottom, BooleanProperty{name=waterlogged}=false}
+minecraft:cobblestone_slab,5207,2960,{EnumProperty{name=type}=bottom, BooleanProperty{name=waterlogged}=false}
+minecraft:mossy_cobblestone_slab,5873,17866,{EnumProperty{name=type}=bottom, BooleanProperty{name=waterlogged}=false}
+minecraft:blackstone_slab,6043,22550,{EnumProperty{name=type}=bottom, BooleanProperty{name=waterlogged}=false}
+minecraft:cobbled_deepslate_slab,6123,24134,{EnumProperty{name=type}=bottom, BooleanProperty{name=waterlogged}=false}
+minecraft:prismarine_slab,5852,17599,{EnumProperty{name=type}=bottom, BooleanProperty{name=waterlogged}=false}
+minecraft:red_sandstone_slab,5774,15785,{EnumProperty{name=type}=bottom, BooleanProperty{name=waterlogged}=false}
+minecraft:sandstone_slab,5182,2439,{EnumProperty{name=type}=bottom, BooleanProperty{name=waterlogged}=false}
+minecraft:stone_slab,4509,11300,{EnumProperty{name=type}=top, BooleanProperty{name=waterlogged}=false}
+minecraft:granite_slab,4807,17313,{EnumProperty{name=type}=top, BooleanProperty{name=waterlogged}=false}
+minecraft:diorite_slab,4961,21698,{EnumProperty{name=type}=top, BooleanProperty{name=waterlogged}=false}
+minecraft:andesite_slab,4401,7198,{EnumProperty{name=type}=top, BooleanProperty{name=waterlogged}=false}
+minecraft:cobblestone_slab,4183,2959,{EnumProperty{name=type}=top, BooleanProperty{name=waterlogged}=false}
+minecraft:mossy_cobblestone_slab,4849,17865,{EnumProperty{name=type}=top, BooleanProperty{name=waterlogged}=false}
+minecraft:blackstone_slab,5019,22549,{EnumProperty{name=type}=top, BooleanProperty{name=waterlogged}=false}
+minecraft:cobbled_deepslate_slab,5099,24133,{EnumProperty{name=type}=top, BooleanProperty{name=waterlogged}=false}
+minecraft:prismarine_slab,4828,17598,{EnumProperty{name=type}=top, BooleanProperty{name=waterlogged}=false}
+minecraft:red_sandstone_slab,4750,15784,{EnumProperty{name=type}=top, BooleanProperty{name=waterlogged}=false}
+minecraft:sandstone_slab,4158,2438,{EnumProperty{name=type}=top, BooleanProperty{name=waterlogged}=false}

@@ -1,0 +1,31 @@
+name: Snowcoals-Tools
+version: '1.0'
+main: org.snowcoal.snowcoalstools.SnowcoalsTools
+api-version: '1.18'
+authors: [ snowcoal ]
+description: various tools developed and used by snowcoal
+depend: [FastAsyncWorldEdit]
+
+commands:
+  citygen:
+    description: generates cities using a maze-based algorithm
+    aliases: cg
+    usage: /citygen
+  houseset:
+    description: creates a set of houses for city
+    aliases: hs
+    usage: /houseset
+  /smoothstairslab:
+    description: converts terrain blocks to slabs and stairs
+    aliases: /smss
+    usage: //smoothstairslab
+  /watererode:
+    description: performs a water erosion simulation on the terrain
+    aliases: /werode
+    usage: //watererode
+  scanblocks:
+    description: scans the blocks to get their ordinals
+    usage: /scanblocks
+  /dim3smooth:
+    description: does a 3-dimensional smoothing operation
+    usage: //dim3smooth
